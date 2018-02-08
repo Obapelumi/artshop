@@ -1,0 +1,237 @@
+|        | GET|HEAD | api/get-details                         |                  | App\Http\Controllers\API\PassportController@getDetails                     | api,auth:api |
+|        | POST     | api/login                               |                  | App\Http\Controllers\Auth\LoginController@login                            | api,guest    |
+|        | GET|HEAD | api/login                               | login            | App\Http\Controllers\Auth\LoginController@showLoginForm                    | api,guest    |
+|        | POST     | api/logout                              | logout           | App\Http\Controllers\Auth\LoginController@logout                           | api          |
+|        | POST     | api/password/email                      | password.email   | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail      | api,guest    |
+|        | POST     | api/password/reset                      |                  | App\Http\Controllers\Auth\ResetPasswordController@reset                    | api,guest    |
+|        | GET|HEAD | api/password/reset                      | password.request | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm     | api,guest    |
+|        | GET|HEAD | api/password/reset/{token}              | password.reset   | App\Http\Controllers\Auth\ResetPasswordController@showResetForm            | api,guest    |
+|        | POST     | api/register                            |                  | App\Http\Controllers\Auth\RegisterController@register                      | api,guest    |
+|        | GET|HEAD | api/register                            | register         | App\Http\Controllers\Auth\RegisterController@showRegistrationForm          | api,guest    |
+|        | GET|HEAD | api/user                                |                  | Closure                                                                    | api,auth:api |
+|        | GET|HEAD | oauth/authorize                         |                  | \Laravel\Passport\Http\Controllers\AuthorizationController@authorize       | web,auth     |
+|        | DELETE   | oauth/authorize                         |                  | \Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny        | web,auth     |
+|        | POST     | oauth/authorize                         |                  | \Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve  | web,auth     |
+|        | POST     | oauth/clients                           |                  | \Laravel\Passport\Http\Controllers\ClientController@store                  | web,auth     |
+|        | GET|HEAD | oauth/clients                           |                  | \Laravel\Passport\Http\Controllers\ClientController@forUser                | web,auth     |
+|        | DELETE   | oauth/clients/{client_id}               |                  | \Laravel\Passport\Http\Controllers\ClientController@destroy                | web,auth     |
+|        | PUT      | oauth/clients/{client_id}               |                  | \Laravel\Passport\Http\Controllers\ClientController@update                 | web,auth     |
+|        | GET|HEAD | oauth/personal-access-tokens            |                  | \Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser   | web,auth     |
+|        | POST     | oauth/personal-access-tokens            |                  | \Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store     | web,auth     |
+|        | DELETE   | oauth/personal-access-tokens/{token_id} |                  | \Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy   | web,auth     |
+|        | GET|HEAD | oauth/scopes                            |                  | \Laravel\Passport\Http\Controllers\ScopeController@all                     | web,auth     |
+|        | POST     | oauth/token                             |                  | \Laravel\Passport\Http\Controllers\AccessTokenController@issueToken        | throttle     |
+|        | POST     | oauth/token/refresh                     |                  | \Laravel\Passport\Http\Controllers\TransientTokenController@refresh        | web,auth     |
+|        | GET|HEAD | oauth/tokens                            |                  | \Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser | web,auth     |
+|        | DELETE   | oauth/tokens/{token_id}                 |                  | \Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy | web,auth     |
++--------+----------+-----------------------------------------+------------------+----------------------------------------------------------------------------+--------------+
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve                                                                                                                                              ravel development server started: <http://127.0.0.1:8000>
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan route:list
++--------+----------+-----------------------------------------+------------------+----------------------------------------------------------------------------+--------------+
+| Domain | Method   | URI                                     | Name             | Action                                                                     | Middleware   |
++--------+----------+-----------------------------------------+------------------+----------------------------------------------------------------------------+--------------+
+|        | GET|HEAD | /                                       |                  | Closure                                                                    | web          |
+|        | GET|HEAD | api/get-details                         |                  | App\Http\Controllers\API\PassportController@getDetails                     | api,auth:api |
+|        | POST     | api/login                               |                  | App\Http\Controllers\Auth\LoginController@login                            | api,guest    |
+|        | GET|HEAD | api/login                               | login            | App\Http\Controllers\Auth\LoginController@showLoginForm                    | api,guest    |
+|        | POST     | api/logout                              | logout           | App\Http\Controllers\Auth\LoginController@logout                           | api          |
+|        | POST     | api/password/email                      | password.email   | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail      | api,guest    |
+|        | POST     | api/password/reset                      |                  | App\Http\Controllers\Auth\ResetPasswordController@reset                    | api,guest    |
+|        | GET|HEAD | api/password/reset                      | password.request | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm     | api,guest    |
+|        | GET|HEAD | api/password/reset/{token}              | password.reset   | App\Http\Controllers\Auth\ResetPasswordController@showResetForm            | api,guest    |
+|        | POST     | api/register                            |                  | App\Http\Controllers\Auth\RegisterController@register                      | api,guest    |
+|        | GET|HEAD | api/register                            | register         | App\Http\Controllers\Auth\RegisterController@showRegistrationForm          | api,guest    |
+|        | POST     | api/signin                              |                  | App\Http\Controllers\API\PassportController@login                          | api          |
+|        | POST     | api/signup                              |                  | App\Http\Controllers\API\PassportController@register                       | api          |
+|        | GET|HEAD | api/user                                |                  | Closure                                                                    | api,auth:api |
+|        | GET|HEAD | oauth/authorize                         |                  | \Laravel\Passport\Http\Controllers\AuthorizationController@authorize       | web,auth     |
+|        | DELETE   | oauth/authorize                         |                  | \Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny        | web,auth     |
+|        | POST     | oauth/authorize                         |                  | \Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve  | web,auth     |
+|        | POST     | oauth/clients                           |                  | \Laravel\Passport\Http\Controllers\ClientController@store                  | web,auth     |
+|        | GET|HEAD | oauth/clients                           |                  | \Laravel\Passport\Http\Controllers\ClientController@forUser                | web,auth     |
+|        | DELETE   | oauth/clients/{client_id}               |                  | \Laravel\Passport\Http\Controllers\ClientController@destroy                | web,auth     |
+|        | PUT      | oauth/clients/{client_id}               |                  | \Laravel\Passport\Http\Controllers\ClientController@update                 | web,auth     |
+|        | POST     | oauth/personal-access-tokens            |                  | \Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store     | web,auth     |
+|        | GET|HEAD | oauth/personal-access-tokens            |                  | \Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser   | web,auth     |
+|        | DELETE   | oauth/personal-access-tokens/{token_id} |                  | \Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy   | web,auth     |
+|        | GET|HEAD | oauth/scopes                            |                  | \Laravel\Passport\Http\Controllers\ScopeController@all                     | web,auth     |
+|        | POST     | oauth/token                             |                  | \Laravel\Passport\Http\Controllers\AccessTokenController@issueToken        | throttle     |
+|        | POST     | oauth/token/refresh                     |                  | \Laravel\Passport\Http\Controllers\TransientTokenController@refresh        | web,auth     |
+|        | GET|HEAD | oauth/tokens                            |                  | \Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser | web,auth     |
+|        | DELETE   | oauth/tokens/{token_id}                 |                  | \Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy | web,auth     |
++--------+----------+-----------------------------------------+------------------+----------------------------------------------------------------------------+--------------+
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+[Fri Nov  3 17:34:22 2017] 127.0.0.1:59763 Invalid request (Unexpected EOF)
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+[Fri Nov  3 20:33:35 2017] 127.0.0.1:60017 Invalid request (Unexpected EOF)
+[Fri Nov  3 20:51:49 2017] 127.0.0.1:60066 Invalid request (Unexpected EOF)
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve                                                                                                                                              
+
+
+  [Symfony\Component\Debug\Exception\FatalThrowableError]
+  Class 'Routh' not found
+
+
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Customer -m
+Model created successfully.
+Created Migration: 2017_11_04_063413_create_customers_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Vendor -m
+Model created successfully.
+Created Migration: 2017_11_04_063459_create_vendors_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Admin -m
+Model created successfully.
+Created Migration: 2017_11_04_063607_create_admins_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:mail WelcomeToArtshop --markdown=emails.WelcomeToArtshop
+Mail created successfully.
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:middleware Vendor
+Middleware created successfully.
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan migrate
+Migrating: 2017_11_04_063413_create_customers_table
+Migrated:  2017_11_04_063413_create_customers_table
+Migrating: 2017_11_04_063459_create_vendors_table
+Migrated:  2017_11_04_063459_create_vendors_table
+Migrating: 2017_11_04_063607_create_admins_table
+Migrated:  2017_11_04_063607_create_admins_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+[Sat Nov  4 11:04:04 2017] PHP Fatal error:  Cannot declare class App\Http\Middleware\Vendor because the name is already in use in C:\xampp\htdocs\artshop-api\app\Http\Middleware\Vendor.php on line 9
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:middleware Admin
+Middleware created successfully.
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:middleware Customer
+Middleware created successfully.
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan serve
+Laravel development server started: <http://127.0.0.1:8000>
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Product
+Model created successfully.
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Product -m
+Model created successfully.
+Created Migration: 2017_11_04_110636_create_products_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Category -m
+Model created successfully.
+Created Migration: 2017_11_04_114020_create_categories_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Tag -m
+Model created successfully.
+Created Migration: 2017_11_04_114049_create_tags_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Handling -m
+Model created successfully.
+Created Migration: 2017_11_04_114113_create_handlings_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:migration create_category_tag_table
+Created Migration: 2017_11_04_114414_create_category_tag_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:migration create_product_tag_table
+Created Migration: 2017_11_04_114503_create_product_tag_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:migration create_category_customer_table
+Created Migration: 2017_11_04_135528_create_category_customer_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Order -m
+Model created successfully.
+Created Migration: 2017_11_04_140717_create_orders_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Review -m
+Model created successfully.
+Created Migration: 2017_11_04_140748_create_reviews_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Case -m
+Model created successfully.
+Created Migration: 2017_11_04_140802_create_cases_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Blog -m
+Model created successfully.
+Created Migration: 2017_11_04_140824_create_blogs_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Comment -m
+Model created successfully.
+Created Migration: 2017_11_04_140938_create_comments_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model Blogger -m
+Model created successfully.
+Created Migration: 2017_11_04_141016_create_bloggers_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:model BlogTag -m
+Model created successfully.
+Created Migration: 2017_11_04_143624_create_blog_tags_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api
+$ php artisan make:migration create_blog_tag_table
+Created Migration: 2017_11_04_143902_create_blog_tag_table
+
+Obapelumi Olomolaiye@Obapelumi MINGW64 /c/xampp/htdocs/artshop-api

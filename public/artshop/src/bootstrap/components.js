@@ -1,0 +1,41 @@
+import Vue from 'vue';
+/*My Components*/
+const App = require('../App.vue');
+const Header = require('../components/layouts/header.vue');
+const Navbar = require('../components/layouts/navbar.vue');
+const Footer = require('../components/layouts/footer.vue');
+const NotFound = require('../components/pages/not-found.vue');
+const Login = require('../components/auth/login.vue');
+const Signup = require('../components/auth/signup.vue');
+const NewsLetter = require('../components/includes/newsletter.vue');
+const IndexBody = require('../components/index/index-body.vue');
+const IndexBlog = require('../components/index/index-blog.vue');
+const Blog = require('../components/blog/blog-index.vue');
+const Dashboard = require('../components/dashboard/dashboard.vue');
+const DashboardSidebar = require('../components/dashboard/dashboard-sidebar.vue');
+const DashboardIndex = require('../components/dashboard/dashboard-index.vue');
+const DashboardEditProfile = require('../components/dashboard/dashboard-edit-profile.vue');
+const Checkout = require('../components/shop/checkout.vue');
+const Cart = require('../components/shop/cart.vue');
+const CartTable = require('../components/shop/cart-table.vue');
+const CartTotal = require('../components/shop/cart-total.vue');
+
+/*Componens*/
+Vue.component('art-header', Header);
+Vue.component('art-navbar', Navbar); 
+Vue.component('art-footer', Footer); 
+Vue.component('art-newsletter', NewsLetter);
+Vue.component('art-index-body', IndexBody);   
+Vue.component('art-index-blog', IndexBlog);
+Vue.component('art-blog', Blog);
+Vue.component('art-not-found', NotFound);
+Vue.component('art-login', Login);
+Vue.component('art-signup', Signup);
+Vue.component('art-dashoard', Dashboard);
+Vue.component('art-dashboard-sidebar', DashboardSidebar);
+Vue.component('art-dashboard-index', DashboardIndex);
+Vue.component('art-dashboard-edit-profile', DashboardEditProfile);
+Vue.component('art-checkout', Checkout);
+Vue.component('art-cart', Cart);
+Vue.component('art-cart-table', CartTable);
+Vue.component('art-cart-total', CartTotal);
