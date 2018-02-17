@@ -40,7 +40,7 @@
     
     -->
   </head>
-  <body class="home-1 blog product-page cart shop group-product">
+  <body class="home-1 blog product-page cart shop group-product shop-checkout">
     <div id="preloaderKDZ"><img src="/images/logo/favicon.png" class="ld ld-heartbeat" id="loader-image"></div>
     <div id="artshop-submitting" style="display: none;"><div class="ld ld-ring ld-cycle"></div></div>
     <div class="sn-site" id="app"></div>

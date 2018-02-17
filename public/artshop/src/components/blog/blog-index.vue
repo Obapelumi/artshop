@@ -62,10 +62,11 @@
                       <i class="fa fa-angle-double-left"> </i>
                     </div>
                     <div class="page" 
-                      v-for="page in pages.slice(page-1, page+2)" 
-                      :key="page"
-                      @click="paginate(page)">
-                      {{page}}
+                      v-for="pageNumber in pages.slice(page-1, page+2)" 
+                      :key="pageNumber"
+                      :class="{activePage: pageNumber === page }"
+                      @click="paginate(pageNumber)">
+                      {{pageNumber}}
                     </div>
                     <div class="page" 
                       v-if="page < pages.length" 
@@ -79,7 +80,7 @@
           </div>
           <div class="col-md-3">
             <div class="sidebar-blog">
-              <aside class="sidebar-search">
+              <!-- <aside class="sidebar-search">
                 <form @submit.prevent="search">
                   <input type="text" v-model="searchValue" placeholder="Search Here...">
                   <a href="#" @click.prevent="search"><i class="fa fa-search"></i></a>
@@ -91,7 +92,7 @@
                   <li v-for="category in categories" :key="category.id"><a href="#">{{category.name}}</a></li>
                   
                 </ul>
-              </aside>
+              </aside> -->
               <aside class="recent-post post-sidebar">
                 <h4>Recent posts</h4>
                 <ul class="recent-posts">
@@ -145,6 +146,7 @@ export default{
       this.$router.push('blog/' + slug);
     },
     paginate (page) {
+      this.page = page;
       let perPage = this.perPage;
       var from = (page * perPage) - perPage;
       var to = (page * perPage);
@@ -201,5 +203,8 @@ export default{
 </script>
 
 <style>
-
+.activePage {
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+}
 </style>

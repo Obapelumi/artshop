@@ -17,7 +17,10 @@
 				<!-- <transition name="fade"> -->
 					<tr v-for="order in myOrders" :key="order.id" v-if="myOrders.length > 0">
 					<td data-title="Image">
-						<a href="#" @click.prevent="singleOrder(order.id)" class="image-product"><img src="/images/demo/tab-1.jpg" alt="tab-1" width="180" height="220"></a>
+						<a href="#" @click.prevent="singleOrder(order.id)" class="image-product">
+							<!-- <img :src="imagePath(order.cart.cart.items[0].file[0].path)" v-if="order.cart.cart.items[0].file[0].path" alt="tab-1" width="180" height="220" style="height: 80px; width: 180px"> -->
+							<img src="/images/logo/favicon.png" alt="tab-1" width="180" height="220">
+						</a>
 					</td>
 					<td data-title="Items" style="cursor: pointer" @click.prevent="singleOrder(order.id)">
 						<a href="#" class="name-product" 

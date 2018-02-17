@@ -19,6 +19,10 @@ return [
         'secret' => env('MAILGUN_SECRET'),
     ],
 
+    'sendgrid' => [
+        'api_key' => env('SENDGRID_API_KEY', 'SG.AhfNoBbkSlS1pzRawB-kpg.Qf1XUPNnUr2C-TYPR0LkQqF-ODCRW_zVbuwL1TN1ugoq1'),
+    ],
+
     'ses' => [
         'key' => env('SES_KEY'),
         'secret' => env('SES_SECRET'),

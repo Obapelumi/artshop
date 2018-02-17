@@ -1,5 +1,5 @@
 <template>
-  <section v-if="displayedReviews.length > 0">
+  <section v-if="displayedReviews.length > 2">
           <div class="recent-news-home-blog">
             <div class="recent-news-container">
                 <div class="sperator text-center">

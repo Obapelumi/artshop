@@ -2,7 +2,7 @@
 	<div>
 		<img src="/images/logo/logo-black.jpg" class="ld ld-heartbeat" id="loader-image" v-if="loading">
 		<transition name="fade">
-          	<div id="artshop-newsletter" v-if="showNewsLetter">
+          	<div class="artshop-modal" v-if="showNewsLetter">
 				<button class="closer" @click.prevent="togglePopUp()"><i class="fa fa-times"></i></button>
                 <art-newsletter @subscribed="togglePopUp()"></art-newsletter>
             </div>                
@@ -10,6 +10,7 @@
 	  	<art-header 
 	  		:cart="cart" 
 	  		:checkCart="checkCart"
+			:check="check"
 	  		:wishList="wishList"
 			:products="products"
 			:vendors="vendors"
@@ -19,7 +20,8 @@
 	  		<router-view 
 		  		:cart="cart"
 		  		:wishList="wishList" 
-		  		:checkCart="checkCart" 
+		  		:checkCart="checkCart"
+				:check="check" 
 		  		:products="products"
 				:vendors="vendors"
 		  		:categories="categories"
@@ -27,6 +29,7 @@
 				:posts="posts"
 				:reviews="reviews"
 				:API_URL="API_URL"
+				@setAuth="setAuth()"
 				@loadMore="loadMore"
 		  		@updateProduct="getProducts"
 				@updateShop="getShop"
@@ -34,6 +37,7 @@
 		  		@updateCart="getCart"
 		  		@updateWishList="getWishList"
 				@updatePosts="getPosts"
+				@updateReviews="getReviews"
 				@newsLetter="togglePopUp()"
 	  		></router-view>
 	  	</transition>
@@ -55,14 +59,27 @@ export default {
 			vendors: [],
 			reviews: [],
     		take: 20,
-    		checkCart: false,
+			checkCart: false,
+			check: {
+				auth: false,
+				vendor: false,
+				admin: false,
+				blogger: false,
+			},
 			realTime: '',
 			loading: false,
 			API_URL: 'http://localhost:8000/api/',
 			showNewsLetter: false,
+			firstLoad: true,
 		}
 	},
 	methods: {
+		setAuth () {
+			this.check.auth = this.auth.checkAuth();
+			this.check.vendor = this.auth.checkVendor();
+			this.check.admin = this.auth.checkAdmin();
+			this.check.blogger = this.auth.checkBlogger();
+		},
 		getProducts () {
 			var display;
 			if (this.auth.checkAdmin()) {
@@ -119,17 +136,14 @@ export default {
 			this.shop.getReviews(this);
 		},
 		togglePopUp () {
-			this.showNewsLetter = !this.showNewsLetter;
-		}
-	},
-
-	watch: {
-		// products () {
-		// 	if (this.$route.path === '/shop' && this.theme.config.PREV.includes('/product/')) {
-		// 		this.$router.push(this.theme.config.PREV);	
-		// 		this.theme.config.PREV = null
-		// 	}
-		// }
+			if (this.firstLoad || this.$route.path == '/not-found') {
+				this.showNewsLetter = !this.showNewsLetter;
+				this.firstLoad = false;
+			}
+			else {
+				this.showNewsLetter = false;
+			}
+		},
 	},
 
 	mounted () {
@@ -156,12 +170,10 @@ export default {
 				clone: true
 		});
 		var $this = this;
-		setTimeout(function () {
-			$this.togglePopUp();
-		}, 3500);
 	},
 	beforeCreate () {
 		if (this.auth.checkAuth()) {
+			this.checkAuth = true;
 			this.theme.getConfig(this);	
 		}
 	},

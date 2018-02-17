@@ -24,10 +24,8 @@ class MailController extends Controller
         $this->middleware('auth:api')->only(['orderConfirmation', 'vendorProductPurchased']);
     }
 
-    public function orderConfirmation (Request $request) {
-        $data = $request->all();
-        $order = $data['order'];
-        $order = Order::where('id', $order['order']['id'])->with(['cart', 'user', 'product'])->first();
+    public function orderConfirmation ($id) {
+        $order = Order::where('id', $id)->with(['cart', 'user', 'product'])->first();
 
         $order->cart->cart = unserialize($order->cart->cart);
 
@@ -61,7 +59,7 @@ class MailController extends Controller
     }
 
     public function sendVerificationCode ($email) {
-        $user = $user = User::where('email', $email)->with(['meta'])->first();
+        $user = User::where('email', $email)->with(['meta'])->first();
 
         Mail::to($user->email)->send(new WelcomeToArtshop($user));
 

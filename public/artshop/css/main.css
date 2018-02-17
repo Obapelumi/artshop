@@ -8255,7 +8255,7 @@ button:focus {
   /*background: #ffffff url(../images/load/loading.gif) center no-repeat;*/
 }
 #artshop-submitting,
-#artshop-newsletter {
+.artshop-modal {
   display: block;
   position: fixed;
   top: 0;
@@ -8279,7 +8279,7 @@ button:focus {
   z-index: 100;
   color: #eee;
 }
-#artshop-newsletter .sn-newletter-style1 {
+.artshop-modal .sn-newletter-style1 {
   position: fixed;
   width: 80%;
   top: 20%;
@@ -8287,7 +8287,7 @@ button:focus {
   border-radius: 5px;
   padding-top: 20px;
 }
-#artshop-newsletter .sn-newletter-style1 .container {
+.artshop-modal .sn-newletter-style1 .container {
   width: 100%;
 }
 .closer {

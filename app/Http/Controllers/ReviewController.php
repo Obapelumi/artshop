@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\Product;
+use App\Models\Admin;
 use App\User;
 use DB;
+use Auth;
 
 class ReviewController extends Controller
 {
     public function __construct () {
         $this->middleware('admin')->only(['destroy']);
+        $this->middleware('auth:api')->only(['update']);
     }
 
     public function index()
@@ -131,21 +134,28 @@ class ReviewController extends Controller
                         ->first();
 
         $user = Auth::user();
+        $admin = Admin::find(['user_id' => $user->id]);
 
-        if ($user->id !== $review->user->id) {
+        if ($user->id !== $review->user->id && !$admin) {
             return response()->json(['status'=> false,
                                     ], 401);
         }
 
         if (array_key_exists('review', $data)) {
             if ($data['review']) {
-                $order->review = $data['review'];
+                $review->review = $data['review'];
             }
         }
 
         if (array_key_exists('vote', $data)) {
             if ($data['vote']) {
-                $order->vote = $data['vote'];
+                $review->vote = $data['vote'];
+            }
+        }
+
+        if (array_key_exists('platform', $data)) {
+            if ($data['platform'] && $admin) {
+                $review->platform = $data['platform'];
             }
         }
 

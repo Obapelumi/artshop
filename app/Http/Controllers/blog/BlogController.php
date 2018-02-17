@@ -4,6 +4,7 @@ namespace App\Http\Controllers\blog;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FileController as Filer;
 use App\User;
 use App\Models\Blog;
 use App\Models\Admin;
@@ -192,12 +193,14 @@ class BlogController extends Controller
 
         $file = $blogPost->file;
 
-        Storage::delete($file->path);
-        $file->delete();
+        if ($file) {
+            Filer::destroy($file->id);
+        }
 
-        $blogPost->comment->delete();
+        // $blogPost->comment->delete();
 
-        DB::delete('delete blog_tag where blog_id = ?', [$blogPost->id]);
+        // DB::delete('delete blog_tag where blog_id = ?', [$blogPost->id]);
+        DB::table('blog_tag')->where('blog_id', $blogPost->id)->delete();
 
         $blogPost->delete();
 

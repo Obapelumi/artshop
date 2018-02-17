@@ -111,9 +111,9 @@ class FileController extends Controller
                                  'file' => $file], 200);
     }
 
-    public function destroy($id)
+    public static function destroy($id)
     {
-        File::find($id);
+        $file = File::find($id);
         Image::make(storage_path('app/public/images/'.$file->path))->destroy();
         $file->delete();
         return response()->json(['status' => true, 'message' => 'file  deleted'], 200);

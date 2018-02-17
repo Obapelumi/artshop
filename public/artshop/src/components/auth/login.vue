@@ -1,5 +1,6 @@
 <template>
 	<section>
+				<title>Login | Artshop</title>
         <div class="container">
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">LOGIN</h1>

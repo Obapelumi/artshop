@@ -42,7 +42,7 @@ Route::get('get-countries', function() {
 });
 
 Route::prefix('mail')->group(function () {
-    Route::post('order', 'MailController@orderConfirmation');
+    Route::get('order/{id}', 'MailController@orderConfirmation');
     Route::post('product-purchase', 'MailController@vendorProductPurchased');
 	Route::get('news-letter', 'NewsLetterController@send');
 	Route::post('password-reset', 'AuthController@resetPassword');

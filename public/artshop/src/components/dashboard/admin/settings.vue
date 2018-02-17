@@ -23,7 +23,7 @@
                 <div class="clearfix"></div>
                 <hr>
                 <div class="woocommerce-billing-fields">
-                  <h3>FEATURE VENDOR</h3>
+                  <!-- <h3>FEATURE VENDOR</h3>
                   <div class="row">
                     <form action="" @submit.prevent="featureVendor('featured')">
                         <div class="col-md-5">
@@ -38,8 +38,8 @@
                             <button class="btn btn-transparent" style="margin-left: 50%; margin-top: 23px;" type="submit"> FEATURE</button>
                         </div>
                     </form>
-                  </div>
-                  <h3>REMOVE FEATURED VENDOR</h3>
+                  </div> -->
+                  <!-- <h3>REMOVE FEATURED VENDOR</h3>
                   <div class="row">
                     <form action="" @submit.prevent="featureVendor('approved')">
                         <div class="col-md-5">
@@ -54,7 +54,7 @@
                             <button class="btn btn-transparent" style="margin-left: 50%; margin-top: 23px;" type="submit"> REMOVE</button>
                         </div>
                     </form>
-                  </div>
+                  </div> -->
                   <h3>ADD CATEGORY</h3>
                   <div class="row">
                     <form action="" @submit.prevent="addCategory">

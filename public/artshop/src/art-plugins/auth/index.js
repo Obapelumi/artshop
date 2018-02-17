@@ -43,19 +43,19 @@ const auth = {
 		}
 
 		$this.axios.post('mail/verify-email', data)
-		.then(response => {
-			$this.theme.submitted();
-			var welcomeMessage = 'Welcome ' + response.data.user.name;
-			$this.theme.smoke('success', welcomeMessage, 3000);
-			setInterval(function () {
-				$this.auth.setToken($this, next, response.data.token.accessToken, response.data.token.token.expires_at, response.data.user);
-			}, 3000);
-		})
-		.catch(response => {
-			$this.theme.submitted();
-			var errorMessage = 'Please check your verification code or resend code';
-			$this.theme.smoke('error', errorMessage, 5000);
-		});
+			.then(response => {
+				$this.theme.submitted();
+				var welcomeMessage = 'Welcome ' + response.data.user.name;
+				$this.theme.smoke('success', welcomeMessage, 3000);
+				setInterval(function () {
+					$this.auth.setToken($this, next, response.data.token.accessToken, response.data.token.token.expires_at, response.data.user);
+				}, 3000);
+			})
+			.catch(response => {
+				$this.theme.submitted();
+				var errorMessage = 'Please check your verification code or resend code';
+				$this.theme.smoke('error', errorMessage, 5000);
+			});
 	},
 
 	login($this, next, email, password) {
@@ -122,11 +122,18 @@ const auth = {
 		localStorage.setItem('token', token);
 		localStorage.setItem('expiresIn', expiresIn);
 		localStorage.setItem('user', JSON.stringify(user));
-		if (next === null) {
+		if (next == null) {
 			next = '/dashboard';
 		}
+		if ($this.auth.checkAuth()) {
+			$this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.getToken().token;
+		}
+		$this.$emit('setAuth');
 		$this.$router.push(next);
-		$this.$router.go($this.$route.path);
+		if ($this.$route.path == '/login') {
+			$this.$router.push('/dashboard');
+		}
+		// $this.$router.go($this.$route.path);
 	},
 
 	getToken ()  {
@@ -249,7 +256,6 @@ const auth = {
 				localStorage.removeItem('user');
 				localStorage.removeItem('expiresIn');
 				$this.$router.go('/login');
-
 			})
 			.catch(response => {
 				$this.theme.submitted();

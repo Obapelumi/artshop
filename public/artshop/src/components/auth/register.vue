@@ -1,5 +1,6 @@
 <template>
 	<section>
+        <title>Sign Up | Artshop</title>
         <div class="container">
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">REGISTER</h1>
@@ -92,7 +93,6 @@
             }
 		},
     beforeCreate () {
-      console.log('creating')
       this.shop.getCategories(this);
     },
     created () {

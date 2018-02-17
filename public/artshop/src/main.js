@@ -39,6 +39,7 @@ Vue.component('art-navbar', require('./components/layouts/navbar.vue'));
 Vue.component('art-notification', require('./components/layouts/notification.vue'));
 Vue.component('art-footer', require('./components/layouts/footer.vue')); 
 Vue.component('art-newsletter', require('./components/includes/newsletter.vue'));
+Vue.component('art-you-sure', require('./components/includes/art-you-sure.vue'));
 Vue.component('art-validate', require('./components/includes/validator-errors.vue'));
 Vue.component('art-image-upload', require('./components/includes/image-upload.vue'));
 Vue.component('art-image-update', require('./components/includes/image-update.vue'));
@@ -275,6 +276,13 @@ const routes = [
 						admin: true
 					}
 				},
+				{
+					path: '/dashboard/admin/all-reviews',
+					component: require('./components/dashboard/admin/all-reviews.vue'),
+					meta: {
+						admin: true
+					}
+				},				
 			],
 		},
 		{
@@ -299,6 +307,7 @@ const routes = [
 					else {
 						theme.config.NEXT = '/checkout';
 						next('/register');
+						theme.smoke('info', 'Please Sign Up to Continue', 3000);
 					}
 				}
 				else {
@@ -328,7 +337,7 @@ const routes = [
 		},
 		{
 			path: '*', 
-			redirect: '/not-found'
+			redirect: '/'
 		},
 	];
 

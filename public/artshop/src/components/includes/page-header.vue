@@ -9,13 +9,13 @@
             <meta property="og:description" :content="metaTags.description" />
             <meta property="og:image" :content="metaTags.image" />
             <meta property="og:image:alt" :content="metaTags.title" />
-            <meta name="twitter:description" :content="metaTags.image">
+            <meta name="twitter:description" :content="metaTags.image" />
             <meta name="twitter:image:src" :content="metaTags.description">
           </div>
               <div class="banner-sub-page">
                 <div class="container capitalize">
-                  <title v-if="subPage">Artshop | {{page}} | {{subPage}}</title>
-                  <title v-else>Artshop | {{page}}</title>
+                  <title v-if="subPage">{{subPage}} | {{page}} | Artshop</title>
+                  <title v-else>{{page}} | Artshop</title>
                   <div class="breadcrumbs">
                     <div class="breadcrumbs-list">
                       <div class="page"> <router-link to="/">Home</router-link></div>

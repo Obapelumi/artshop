@@ -1,24 +1,26 @@
 <template>
 <section class="dashboard section" id="dashboard-index">
-	<title>Artshop | Dashboard</title>
+	<title>Dashboard | Artshop</title>
 	<!-- Container Start -->
 	<div class="container">
 		<!-- Row Start -->
 		<div class="row">
 			<art-dashboard-sidebar 
 				:user="user" 
-				:vendors="vendors"
-				:admins="admins"
+				:thisVendor="thisVendor()"
+				:thisAdmin="thisAdmin()"
 				:myOrders="myOrders" 
 				:orders="orders" 
 				:products="products"
+				:reviews="reviews"
 			></art-dashboard-sidebar>
 			<transition name="slideRight">
 			<router-view 
 				:user="user" 
 				:vendors="vendors"
 				:admins="admins"
-				:products="products" 
+				:products="products"
+				:reviews="reviews"
 				:tags="tags"
 				:posts="posts"
 				:categories="categories" 
@@ -27,7 +29,9 @@
 				:newsletters="newsletters"
 				@updateProduct="$emit('updateProduct')"
 				@updateShop="$emit('updateShop')"
-				@updateOrders="adminData">		
+				@updatePosts="$emit('updatePosts')"
+				@updateOrders="adminData"
+				@updateReviews="$emit('updateReviews')">		
 			</router-view>
 			</transition>
 		</div>
@@ -39,7 +43,7 @@
 
 <script>
 	export default{
-		props: ['products', 'categories', 'posts', 'vendors', 'tags'],
+		props: ['products', 'categories', 'posts', 'vendors', 'tags', 'reviews'],
 		data(){
 			return{
 				user: {},
@@ -47,8 +51,8 @@
 				admins: [],
 				myOrders: [],
 				newsletters: [],
-				thisVendor: null,
-				thisAdmin: null,
+				// thisVendor: null,
+				// thisAdmin: null,
 			}
 		},
 		methods: {
@@ -61,28 +65,31 @@
 						});
 				}
 			},
-			setAdmin () {
-				this.thisAdmin = this.admins.filter(admin => admin.user_id === this.user.id)[0];
-			},
-			setVendor () {
-				if (this.auth.checkVendor()) {
-					this.thisVendor = this.vendors.filter(vendor => vendor.user_id === this.user.id)[0];
-				}
-			},
 			adminData () {				
 				if (this.auth.checkAdmin()) {
 					this.shop.getOrders(this);
 					this.admin.getNewsLetters(this);
 					this.admin.getAdmins(this);
-					this.setAdmin();
 				}
-			}
+			},
+			thisAdmin () {
+				var $this = this;
+				return this.admins.filter(admin => admin.user_id == $this.user.id)[0];
+			},
+			thisVendor () {
+				if (this.auth.checkVendor()) {
+					var $this = this;
+					return this.vendors.filter(vendor => vendor.user_id == $this.user.id)[0];
+				}
+			},
+		},
+		computed: {
+
 		},
 		created () {
 			this.user = this.auth.getUser(this);
 			this.getMyOrders();
 			this.adminData();
-			this.setVendor();
 		},
 	}
 </script>

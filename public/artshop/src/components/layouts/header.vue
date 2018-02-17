@@ -16,7 +16,11 @@
                   </aside>
                 </div>
                 <div class="header-top-right">
-                  <div class="header-top-div header-top-search"><router-link to="/checkout" v-if="checkCart">Checkout </router-link><router-link to="/login" v-if="!auth.checkAuth()">| Login </router-link> <router-link to="/dashboard/orders" v-if="auth.checkAdmin()">|       My Account</router-link> <router-link to="/dashboard" v-else-if="auth.checkAuth()">|       My Account</router-link></div>
+                  <div class="header-top-div header-top-search">
+                    <router-link to="/checkout" v-if="checkCart">Checkout | </router-link>
+                    <router-link to="/register" v-if="!check.auth"> Sign up | </router-link> 
+                    <router-link to="/login" v-if="!check.auth"> Log in </router-link> 
+                    <router-link to="/dashboard/orders" v-if="auth.checkAdmin()">|       My Account</router-link> <router-link to="/dashboard" v-else-if="check.auth">|       My Account</router-link></div>
                 </div>
               </div>
               <div class="header-top-logo"><router-link to="/" title="ARTSHOP"><img src="/images/logo/favicon.png" alt="Artshop" class="logo-img" style="margin-left: 40px;"/></router-link>
@@ -78,7 +82,7 @@
               </div>
               <!-- .header-logo-->
 
-             <art-navbar :categories="categories" :products="products" ></art-navbar>
+             <art-navbar :categories="categories" :check="check" :products="products" ></art-navbar>
               <!-- .header-main-nav-->
             </div>
             <div class="main-nav-wrapper header-right">
@@ -165,7 +169,7 @@
 
 <script>
 	export default{
-    props: ['cart', 'checkCart', 'wishList', 'categories', 'products', 'vendors'],
+    props: ['cart', 'checkCart', 'check', 'wishList', 'categories', 'products', 'vendors'],
     data () {
       return {
         category_id: 'Categories',

@@ -1,5 +1,12 @@
 <template>
 <form class="col-md-10 offset-md-1 col-lg-8 offset-lg-0" id="create-product" @submit.prevent="register">
+    <art-you-sure 
+        v-if="askConfirm" 
+        @confirm="deletePost(deletedPost)"
+        @close="triggerModal()"
+        :info="'delete this post?'"
+    >
+    </art-you-sure>
     <div id="customer_details" class="col2-set row">
     <div class="">
         <div class="woocommerce-billing-fields">
@@ -20,7 +27,7 @@
                 <div class="clearfix col-lg-6 col-md-6">
                     <p>
                         <label>SEO Key Words <abbr title="" class="required">*</abbr></label>
-                        <input type="text" v-model="post.seo_key_words">
+                        <input type="text" v-model="post.seo_key_words" required>
                     </p>
                 </div>
             <!-- <div class="clearfix col-lg-6 col-md-6">
@@ -36,18 +43,18 @@
                 </form>
         </div> <br>
         <h3>BLOG POSTS</h3>
-        <div class="cart-form" v-if="posts.length !== 0">
+        <div class="cart-form" v-if="myPosts.length !== 0">
 			<table>
 			    <tbody>
 			    <tr>
 			      <th> </th>
 			      <th>Title</th>
-			      <!-- <th>Views</th>
-			      <th>Likes & Shares</th> -->
+			      <!-- <th>Views</th> -->
+			      <th>Commments</th> 
 			      <th>Date Published</th>
-                  <th>Edit</th>
+                  <th>Edit / Delete</th>
 			    </tr>
-			    <tr v-for="blogPost in posts" :key="blogPost.id">
+			    <tr v-for="blogPost in myPosts" :key="blogPost.id">
 			      <td data-title="Image">
 			      	<a href="#" class="image-product">
                         <img 
@@ -69,18 +76,19 @@
 			      </td>
 			      <!-- <td data-title="Views">
 			      	<span class="price">{{blogPost.views}}</span>
-			      </td>
-			      <td data-title="Comments">
-			      	<span class="quantity"></span>
 			      </td> -->
+			      <td data-title="Comments">
+			      	<span class="quantity">{{blogPost.comment.length}}</span>
+			      </td> 
 			      <td data-title="Published" v-if="post.published === true"><span class="total">{{blogPost.published | moment("dddd, MMMM Do YYYY")}}</span></td>
                   <td data-title="Publish" v-else><span class="total"><a href="">Publish</a></span></td>
                   <td data-title="Edit">
                       <router-link :to="'/dashboard/blog/edit/'+blogPost.slug">
-                          <i class="fa fa-pencil" style="cursor: pointer">
-                    </i></router-link>
+                          <i class="fa fa-pencil" style="cursor: pointer"></i> |
+                      </router-link> 
+                          <i class="fa fa-trash-o" style="cursor: pointer" @click="triggerModal(blogPost)"></i>
+                      
                   </td>
-
 			    </tr>
 					
 			  </tbody>
@@ -114,6 +122,8 @@ export default {
             timer: '',
             myPosts: [],
             uploadImage: false,
+            askConfirm: false,
+            deletedPost: null
 		}
     },
     methods: {
@@ -126,17 +136,36 @@ export default {
             this.submitPost();
         },
         setMyPosts () {
-            this.myPosts = this.admin.postsByBlogger(this);
+            if (this.posts.length > 0) {
+                this.myPosts = this.admin.postsByBlogger(this);
+            }
+        },
+        triggerModal (post=null) {
+            this.askConfirm = !this.askConfirm;
+            if (post) {
+                this.deletedPost = post;
+            }
+        },
+        deletePost (post) {
+            this.admin.deleteBlogPost(this, post);
+        }
+
+    },
+    watch: {
+        posts () {
+            this.setMyPosts();
         }
     },
     mounted () {
-        console.log('mounted')
         this.theme.getCKEditor(this, 'blog_body', 'body');
     },
     beforeDestroy () {
         this.timer = '';
         document.getElementById('editor').id = 'blog_body';
     },
+    created () {
+        this.setMyPosts();
+    }
 }
 </script>
 

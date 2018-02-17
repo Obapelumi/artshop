@@ -36,6 +36,11 @@
 							<i class="fa fa-shopping-bag"></i> Artshop Products <span v-if="pendingProducts.length > 0">{{pendingProducts.length}}</span>
 						</router-link>
 					</li>
+					<li :class="{ active: isProductReviews }" v-if="auth.checkAdmin()">
+						<router-link to="/dashboard/admin/all-reviews">
+							<i class="fa fa-quote-left"></i> Product Reviews <span v-if="reviews.length > 0">{{reviews.length}}</span>
+						</router-link>
+					</li>
 					<li :class="{ active: isStatistics }" v-if="auth.checkAdmin()">
 						<router-link to="/dashboard/admin/statistics">
 							<i class="fa fa-bar-chart"></i> Statistics
@@ -88,7 +93,7 @@
 							<i class="fa fa-pencil"></i> Create Product 
 						</router-link>
 					</li>
-					<li :class="{ active: reviews }" v-if="auth.checkVendor() && reviewCount">
+					<li :class="{ active: isReviews }" v-if="auth.checkVendor() && reviewCount">
 						<router-link to="/dashboard/reviews">
 							<i class="fa fa-quote-left"></i> Reviews <span>{{reviewCount}}</span>
 						</router-link>
@@ -105,7 +110,7 @@
 <script>
 
 	export default{
-		props: ['user', 'orders', 'myOrders', 'products', 'admins', 'vendors'],
+		props: ['user', 'orders', 'myOrders', 'products', 'thisAdmin', 'thisVendor', 'reviews'],
 
 		data(){
 			return {
@@ -141,7 +146,7 @@
 			},
 			setReviewCount () {
 				var $this = this;
-				if ($this.products) {
+				if ($this.products && this.auth.checkVendor()) {
 					var id = this.user.vendor.id;
 					var myProducts = this.shop.productsByVendor (this, id);
 					var reviewedProducts = myProducts.filter(product => product.review.length > 0);
@@ -150,14 +155,6 @@
 			},
 		},
 		computed: {
-			thisVendor () {
-				var vendor = this.vendors.filter(vendor => vendor.id === this.user.vendor_id)[0];
-				return vendor;
-			},
-			thisAdmin () {
-				var admin = this.admins.filter(admin => admin.id === this.user.admin_id)[0];
-				return admin;
-			},
 			dashboard () {
 				if (this.$route.path === '/dashboard' 
 					|| this.$route.path.includes('/dashboard/my-orders')) 
@@ -175,6 +172,14 @@
 				}
 				else {
 					return false
+				}
+			},
+			isProductReviews () {
+				if (this.$route.path === '/dashboard/admin/all-reviews') {
+					return true;
+				}
+				else {
+					return false;
 				}
 			},
 			createProduct () {
@@ -222,7 +227,7 @@
 					return false
 				}
 			},
-			reviews () {
+			isReviews () {
 				if (this.$route.path === '/dashboard/reviews') {
 					return true
 				}

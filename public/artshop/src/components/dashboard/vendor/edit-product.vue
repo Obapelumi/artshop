@@ -27,7 +27,8 @@
                     </div>
                     <div class="col-md-6">
                       <p>
-                        <label>Price (Naira) <abbr title="required" class="required">*</abbr></label>
+                        <label v-if="price > 0">&#8358;{{price * 100 | money}}</label>
+                        <label v-else>Price (Naira) <abbr title="required" class="required">*</abbr> </label>
                         <input type="number" v-model="price" :readonly="product.display > 2"/>
                       </p>
                     </div>

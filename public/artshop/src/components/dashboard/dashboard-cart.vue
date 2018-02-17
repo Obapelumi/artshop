@@ -1,5 +1,5 @@
 <template>
-<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0" v-if="orders.length > 0">
+<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0" v-if="order != null">
 	<!-- Recently Favorited -->
 	<div class="widget dashboard-container my-adslist">
     <h4>Customer Name:</h4>
@@ -54,10 +54,19 @@
           shoppingCart: false,
           orderedCart: true,
           statuses: ['paid', 'acknowledged', 'delivered', 'confirmed', 'payout in progress'],
+          order: null,
         }
       },
 
       methods: {
+        setOrder () {
+            if (this.$route.path.includes('/dashboard/my-orders')) {
+                this.order = this.getCustomerCart();
+            }
+            else {
+                this.order = this.getAdminCart();
+            }
+        },
         getCustomerCart () {
             var id = this.$route.params.id;
             var result = this.myOrders.filter(order => order.id == id)[0];
@@ -73,19 +82,16 @@
         },
       },
 
-      computed: {
-          order () {
-            if (this.$route.path.includes('/dashboard/my-orders')) {
-                return this.getCustomerCart();
-            }
-            else {
-                return this.getAdminCart();
-            }
+      watch : {
+          orders () {
+              this.setOrder();
           }
       },
 
       created () {
-
+          if (this.orders.length > 0 || this.myOrders.length > 0) {
+              this.setOrder();
+          }
       },
       beforeDestroy () {
         if (this.$route.path.includes('/dashboard/my-orders')) {

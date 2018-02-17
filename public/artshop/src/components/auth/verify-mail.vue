@@ -1,5 +1,6 @@
 <template>
 	<section>
+        <title> Verify Mail | Artshop</title>
         <div class="container">
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">VERIFY E-MAIL ADDRESS</h1>

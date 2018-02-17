@@ -187,14 +187,13 @@ const shop = {
         if (storedItem.qty <= product.stock) {
             message = product.name + ' has been added to your shopping cart';
             $this.theme.smoke('success', message, 3000);
-            $this.$emit('updateCart');
             localStorage.setItem('cart', JSON.stringify(cart));
         }
         else{
             message = product.name + ' is out of stock';
             $this.theme.smoke('error', message, 3000);
-            $this.$emit('updateCart');
         }
+        $this.$emit('updateCart');
     },
 
     removeFromCart ($this,  product, qty = 1) {
@@ -380,9 +379,7 @@ const shop = {
                     localStorage.removeItem('cart');
                     
                     var order = response.data.order;
-                    $this.shop.sendOrderMails($this, order);                    
-
-                    localStorage.removeItem('cart');
+                    $this.shop.sendOrderMails($this, order);
                 })
                 .catch(response => {
                     $this.theme.submitted();
@@ -394,11 +391,7 @@ const shop = {
     },
 
     sendOrderMails ($this, order) {
-        var orderData = {
-            order: order,
-        };
-
-        $this.axios.post('mail/order', orderData)
+        $this.axios.get('mail/order/'+order.id)
             .then(response => {
                 $this.theme.smoke('success', 'We have sent you an email to confirm your order', 10000);
             })

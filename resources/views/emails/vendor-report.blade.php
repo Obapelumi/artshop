@@ -6,7 +6,7 @@
 Here's how your products are doing,
 <ul>
     @foreach($vendor->product as $product)
-        <li>{{$product->name}}: {{$product->quantity_sold}}</li>
+        <li>{{$product->name}}: {{$product->quantity_sold}}</li> <br>
     @endforeach
 </ul>
 

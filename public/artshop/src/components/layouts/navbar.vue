@@ -30,21 +30,26 @@
                   <li class="menu-item menu-blog"><router-link to="/vendors">Vendors</router-link>
                     <ul class="sub-menu">
                       <li><router-link to="/vendors">Our Vendors</router-link></li>
-                      <li v-if="auth.checkVendor()"><router-link to="/dashboard/create-product">Create Product</router-link></li>
-                      <li v-if="!auth.checkVendor()"><router-link to="/register-vendor">Become a vendor</router-link></li>
+                      <li v-if="check.vendor"><router-link to="/dashboard/create-product">Create Product</router-link></li>
+                      <li v-if="!check.vendor"><router-link to="/register-vendor">Become a vendor</router-link></li>
                     </ul>
                   </li>
                   <li class="menu-item menu-blog"><router-link to="/blog">Blog</router-link></li>
-                  <li class="menu-item menu-blog" v-if="auth.checkAuth()">
-                    <router-link to="/dashboard/orders" v-if="auth.checkAdmin()">My Account</router-link> <router-link to="/dashboard" v-else-if="auth.checkAuth()">My Account</router-link>
+                  <li class="menu-item menu-blog" v-if="check.auth">
+                    <router-link to="/dashboard/orders" v-if="check.admin">My Account</router-link> <router-link to="/dashboard" v-else-if="check.auth">My Account</router-link>
                   <ul class="sub-menu">
-                      <li v-if="auth.checkVendor()"><router-link to="/dashboard/create-product">Create Product</router-link></li>
-                      <li v-if="auth.checkVendor()"><router-link to="/dashboard/my-products">My Products</router-link></li>
-                      <li v-if="!auth.checkVendor()"><router-link to="/register-vendor">Become a vendor</router-link></li>
-                      <li v-if="auth.checkAuth()"><a href="#" @click.prevent="signout()">Log Out</a> </li>
+                      <li v-if="check.vendor"><router-link to="/dashboard/create-product">Create Product</router-link></li>
+                      <li v-if="check.vendor"><router-link to="/dashboard/my-products">My Products</router-link></li>
+                      <li v-if="!check.vendor"><router-link to="/register-vendor">Become a vendor</router-link></li>
+                      <li v-if="check.auth"><a href="#" @click.prevent="signout()">Log Out</a> </li>
                     </ul>
                   </li>
-                  <li class="menu-item menu-blog" v-else><router-link to="/login">Login</router-link></li>
+                  <li class="menu-item menu-blog" v-else><router-link to="/login">Login</router-link>
+                    <ul class="sub-menu">
+                      <li><router-link to="/login">LOG IN</router-link></li>
+                      <li><router-link to="/register">SIGN UP</router-link></li>
+                    </ul>
+                  </li>
                   <li class="menu-item menu-blog"><router-link to="/about">About</router-link>
                     <ul class="sub-menu">
                       <li><router-link to="/about">About Us</router-link></li>
@@ -56,9 +61,9 @@
                   <div class="canvas-menu-toggle"><i class="fa fa-bell" v-if="false"></i></div>
                 </div>
                 <ul class="header-customize-item header-social-profile-wrapper" v-if="!shop.checkCart()">
-                  <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                  <li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                  <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="http://facebook.com/artshopng" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="http://instagram.com/artshopng" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                  <li><a href="http://twitter.com/artshopng" target="_blank"><i class="fa fa-twitter"></i></a></li>
                 </ul>
               </nav>
               <nav id="primary-menu" class="main-nav" v-else>
@@ -92,21 +97,26 @@
                   <li class="menu-item menu-blog"><a href="/#/vendors">Vendors</a>
                     <ul class="sub-menu">
                       <li><a href="/#/vendors">Our Vendors</a></li>
-                      <li v-if="auth.checkVendor()"><a href="/#/dashboard/create-product">Create Product</a></li>
-                      <li v-if="!auth.checkVendor()"><a href="/#/register-vendor">Become a vendor</a></li>
+                      <li v-if="check.vendor"><a href="/#/dashboard/create-product">Create Product</a></li>
+                      <li v-if="!check.vendor"><a href="/#/register-vendor">Become a vendor</a></li>
                     </ul>
                   </li>
                   <li class="menu-item menu-blog"><a href="/#/blog">Blog</a></li>
-                  <li class="menu-item menu-blog" v-if="auth.checkAuth()">
-                    <a href="/#/dashboard/orders" v-if="auth.checkAdmin()">My Account</a> <a href="/#/dashboard" v-else-if="auth.checkAuth()">My Account</a>
+                  <li class="menu-item menu-blog" v-if="check.auth">
+                    <a href="/#/dashboard/orders" v-if="check.admin">My Account</a> <a href="/#/dashboard" v-else-if="check.auth">My Account</a>
                   <ul class="sub-menu">
-                      <li v-if="auth.checkVendor()"><a href="/#/dashboard/create-product">Create Product</a></li>
-                      <li v-if="auth.checkVendor()"><a href="/#/dashboard/my-products">My Products</a></li>
-                      <li v-if="!auth.checkVendor()"><a href="/#/register-vendor">Become a vendor</a></li>
-                      <li v-if="auth.checkAuth()"><a href="/#/logout">Log Out</a> </li>
+                      <li v-if="check.vendor"><a href="/#/dashboard/create-product">Create Product</a></li>
+                      <li v-if="check.vendor"><a href="/#/dashboard/my-products">My Products</a></li>
+                      <li v-if="!check.vendor"><a href="/#/register-vendor">Become a vendor</a></li>
+                      <li v-if="check.auth"><a href="/#/logout">Log Out</a> </li>
                     </ul>
                   </li>
-                  <li class="menu-item menu-blog" v-else><a href="/#/login">Login</a></li>
+                  <li class="menu-item menu-blog" v-else><a href="/#/login">Login</a>
+                    <ul class="sub-menu">
+                      <li><a href="/#/login">LOGIN</a></li>
+                      <li><a href="/#/register">SIGN UP</a></li>
+                    </ul>
+                  </li>
                   <li class="menu-item menu-blog"><a href="/#/about">About</a>
                     <ul class="sub-menu">
                       <li><a href="/#/about">About Us</a></li>
@@ -129,7 +139,7 @@
 
 <script>
 	export default{
-    props: ['categories', 'products'],
+    props: ['categories', 'products', 'check'],
 		data(){
 			return{
 				book: 'book'

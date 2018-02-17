@@ -75,10 +75,10 @@ class OrderController extends Controller
 
         $order->product()->sync($productIds, false);
 
-        $order = (array)$order;
-        $order['cart'] = $productCart;
-        $order['user'] = Auth::user();
-        $order = (object)$order;
+        // $order = (array)$order;
+        // $order['cart'] = $productCart;
+        // $order['user'] = Auth::user();
+        // $order = (object)$order;
 
         // Mail::to(Auth::user()->email)->send(new OrderConfirmed($order));
 

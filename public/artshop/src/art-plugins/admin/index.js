@@ -25,7 +25,7 @@ const admin = {
 		$this.axios.get('admin')
 			.then(response => {
 				$this.admins = response.data.admins;
-			})
+			});
 	},
 
     registerBlogger ($this) {
@@ -59,6 +59,7 @@ const admin = {
 				$this.post.meta.image.blog_id = response.data.post.id;
 				$this.post.meta.image.slug = response.data.post.slug;
 				$this.uploadImage = true;
+				$this.$emit('updatePost');
 			})
 			.catch(response => {
 				$this.theme.submitted();
@@ -78,6 +79,21 @@ const admin = {
 				$this.theme.submitted();
 				$this.theme.smoke('error', 'There was an issue submitting your post please try again', 4000);
 			});
+	},
+
+	deleteBlogPost ($this, post) {
+		$this.theme.submitting();
+		$this.axios.delete('blog/'+post.id)
+			.then(response => {
+				$this.theme.submitted();
+				$this.theme.smoke('success', 'Post deleted', 4000);
+				$this.$emit('updatePosts');
+			})
+			.catch(response => {
+				$this.theme.submitted();
+				$this.theme.smoke('error', 'There was an issue please try again', 4000);
+				$this.$emit('updatePosts');
+			})
 	},
 
 	getBlogPosts ($this) {

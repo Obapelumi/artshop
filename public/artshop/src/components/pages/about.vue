@@ -21,44 +21,50 @@
                      </p>
                     </div>
                   </div>
-                  <div class="wpb_single_image wpb_content_element vc_align_center">
-                    <figure class="wpb_wrapper vc_figure">
-                      <div class="vc_single_image-wrapper vc_box_border_grey"><img src="images/demo/about.jpg" alt="img 8" width="920" height="350" class="vc_single_image-img attachment-full"/></div>
-                    </figure>
-                  </div>
                   <div class="wpb_text_column wpb_content_element" style="line-height: 30px">
                     <div class="wpb_wrapper">
                       <p>ArtShopNG promotes the beauty of the Nigerian culture by creating an online community where crafters, artists and makers could sell their handmade, vintage goods and craft supplies not only providing the advantage of being open for business 24/7, but also the opportunity to broaden their reach to consumers across Nigeria, Africa and the rest of the world</p>
                     </div>
                   </div>
+                  <h2><router-link to="/merchant-agreement">READ OUR MERCHANT AGREEMENT</router-link></h2>
+                  <br>
                   <div class="about-bottom">
-                    <h2>CONTACT US</h2>
-                    <div class="row">
-                      <div class="about-bottom-left col-md-6">
-                        <div class="wpb_wrapper">
-                          <p>For inquiry on our products and services at Artshop.com.ng, you can reach us 24/7 on the Support Lines listed beside</p>
-                          <p>Alongside that fill your name, mail and message thingy. Do you understand sir?</p>
-                        </div>
-                        <h2><router-link to="/merchant-agreement">READ OUR MERCHANT AGREEMENT</router-link></h2>
-                        <br>
-                      </div>
-                      <div class="about-bottom-right col-md-6"><router-link to="/" title="ARTSHOP"><img src="images/logo/favicon.png" alt="Artshop" class="logo-img"/></router-link>
-                        <div class="icon-box icon-box-style2">
-                          <div class="icon-box-left"><i class="fa fa-map-marker"></i></div>
-                          <div class="icon-box-right"><span>10, Emokaro street. Off Governor road. Ikotun. Lagos</span></div>
-                        </div>
-                        <div class="icon-box icon-box-style2">
-                          <div class="icon-box-left"><i class="fa fa-phone"></i></div>
-                          <div class="icon-box-right"><span>Phone : <a href="tel:+234 (0) 80 5110 6313">+234 (0) 80 5110 6313</a> <br>
-                        <a href="tel:+234 (0) 81 8983 7848">+234 (0) 81 8983 7848</a>
-</span></div>
-                        </div>
-                        <div class="icon-box icon-box-style2">
-                          <div class="icon-box-left"><i class="fa fa-envelope-o"></i></div>
-                          <div class="icon-box-right">
-                              <span>Email : 
-                                  <a href="mailto:contactus@artshop.com.ng">contactus@artshop.com.ng</a>
-                              </span>
+                        <div class="contact-us contact-bottom">
+                          <h2>GET IN TOUCH</h2>
+                          <div class="row">
+                            <div class="contact-bottom-left col-md-8">
+                              <form ACTION="mailto:contactus@artshop.com.ng" METHOD="POST" enctype="text/plain" class="wpcf7-form">
+                                <p></p>
+                                <h6>NAME *</h6>
+                                <p>
+                                  <span class="wpcf7-form-control-wrap your-name">
+                                    <input name="name" required value="" size="40" placeholder="Your Name" type="text" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"/>
+                                  </span>
+                                </p>
+                                <p></p>
+                                <h6>EMAIL *</h6>
+                                <p>
+                                  <span class="wpcf7-form-control-wrap your-email">
+                                    <input name="email" required value="" placeholder="Email Address" type="email" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"/>
+                                  </span>
+                                </p>
+                                <p></p>
+                                <h6>MESSAGE</h6>
+                                <p><span class="wpcf7-form-control-wrap your-message">
+                                    <textarea name="message" required cols="40" rows="4" aria-invalid="false" class="wpcf7-form-control wpcf7-textarea"></textarea></span></p>
+                                <p>
+                                  <input value="SEND MESSAGE" type="submit" class="wpcf7-form-control wpcf7-submit"/>
+                                </p>
+                                <div class="wpcf7-response-output wpcf7-display-none"></div>
+                              </form>
+                            </div>
+                            <div class="contact-bottom-right col-md-4">
+                              <div class="contact-bottom-right-content">
+                                <p>For inquiry on our products and services at Artshop.com.ng, you can reach us 24/7.</p>
+                                <p>Fill your name, mail and message. We will get back to you as soon as we can.</p>
+                                <p>Thank You for reaching out!</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

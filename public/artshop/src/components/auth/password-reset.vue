@@ -1,5 +1,6 @@
 <template>
 	<section>
+        <title> Reset Password | Artshop</title>
         <div class="container">
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">PASSWORD RESET</h1>

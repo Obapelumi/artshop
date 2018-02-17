@@ -1,7 +1,7 @@
 <template>
       <div id="example-wrapper" class="home-blog">
         <div class="section">
-          <title>Artshop | Home - Premier Handmade Marketplace to Buy & Sell Quality crafts, art, textile prints and afrocentric</title>
+          <title>Artshop - Premier Handmade Marketplace to Buy & Sell Quality crafts, art, textile prints and afrocentric</title>
           <div class="slide-home slide-home-1">
             <div data-number="1" data-margin="100" data-loop="yes" data-navcontrol="yes" class="sofani-owl-carousel">
               <div class="slide1">
@@ -381,7 +381,11 @@
       }
     },
     mounted () {
+      var $this = this
       this.theme.carousel();
+			setTimeout(function () {
+				$this.$emit('newsLetter');
+			}, 3500);
     },
 	}
 </script>

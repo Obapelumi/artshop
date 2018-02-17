@@ -1,9 +1,10 @@
 <template>
 	<section>
+        <title>Shipping Details | Artshop</title>
         <div class="container">
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">SHIPPING DETAILS</h1>
-            <div class="woocommerce-checkout-info" v-if="authCheck"><h3>Welcome, {{user.name}}<br><br> Please confirm your Shipping Details</h3></div>
+            <div class="woocommerce-checkout-info capitalize" v-if="authCheck"><h3>Welcome, {{user.name}}<br><br> Please Fill out your Shipping Details</h3></div>
           </div>
           <form class="cart-form" @submit.prevent="register">
             <div id="customer_details" class="col2-set row">

@@ -14,8 +14,8 @@
           <th>&#32;</th>
         </tr>
         <tr v-for="product in wishList" :key="product.id" v-if="wishList">
-          <td data-title="remove"><a href="#" class="remove" @click.prevent="removeFromWishList(product)"><i class="pe-7s-close-circle"></i></a></td>
-          <td data-title="image">
+          <td data-title="Remove"><a href="#" class="remove" @click.prevent="removeFromWishList(product)"><i class="pe-7s-close-circle"></i></a></td>
+          <td data-title="Image">
           	<a href="#" @click.prevent="singleProduct(product.slug)">
               <img 
                 :src="theme.imagePath(product.file[0].path)" 
@@ -31,7 +31,7 @@
               >
             </a>
           </td>
-          <td data-title="name product">
+          <td data-title="Product Name">
           	<a href="#" @click.prevent="singleProduct(product.slug)" class="product-name">{{product.name}}</a>
           </td>
           <td data-title="Unit Price">

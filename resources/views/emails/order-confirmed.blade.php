@@ -3,16 +3,17 @@
 
 ## Hi, {{$order->user->name}} <br>
 
-We have recieved your Order for <br>
+We have recieved your Order<br><br>
 
-###Products: <br>
-@foreach($order->cart['items'] as $item)
-    {{ $item['item']['name'] }} ({{ $item['qty'] }}) <br>
+### Items: <br>
+@foreach($order->cart->cart['items'] as $item)
+    {{ $item['item']['name'] }} ({{ $item['qty'] }}),
+
 @endforeach
 
 ###Totals: <br>
-**Total Quantity: ** {{ $order->cart['totalQty'] }} <br>
-**Ammount Paid: ** {{ $order->amount_charged }} <br>
+**Total Quantity: ** {{ $order->cart->cart['totalQty'] }} <br>
+**Ammount Paid: ** &#8358;{{ $order->amount_charged }} <br>
 
 @component('mail::button', ['url' => Config::get('app.url').'/dashboard', 'color' => 'green'])
 View Order

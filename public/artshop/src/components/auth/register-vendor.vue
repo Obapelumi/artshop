@@ -1,5 +1,6 @@
 <template>
 	<section>
+        <title>Vendor Registration | Artshop</title>
         <div class="container">
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">REGISTER</h1>
