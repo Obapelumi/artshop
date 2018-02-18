@@ -8,7 +8,7 @@
                       <li v-if="shop.checkWishList()"><router-link to="/wish-list">Wish List</router-link></li>
                     </ul>
                   </li>
-                  <li class="menu-item menu-blog" v-if="shop.checkCart()"><router-link to="/checkout">CHECK OUT</router-link>
+                  <li class="menu-item menu-blog" v-if="checkCart"><router-link to="/checkout">CHECK OUT</router-link>
                     <ul class="sub-menu">
                       <li><router-link to="/checkout">Check Out</router-link></li>
                       <li><router-link to="/cart">Cart</router-link></li>
@@ -60,7 +60,7 @@
                 <div class="header-customize-item canvas-menu-toggle-wrapper">
                   <div class="canvas-menu-toggle"><i class="fa fa-bell" v-if="false"></i></div>
                 </div>
-                <ul class="header-customize-item header-social-profile-wrapper" v-if="!shop.checkCart()">
+                <ul class="header-customize-item header-social-profile-wrapper" v-if="!checkCart">
                   <li><a href="http://facebook.com/artshopng" target="_blank"><i class="fa fa-facebook"></i></a></li>
                   <li><a href="http://instagram.com/artshopng" target="_blank"><i class="fa fa-instagram"></i></a></li>
                   <li><a href="http://twitter.com/artshopng" target="_blank"><i class="fa fa-twitter"></i></a></li>
@@ -75,7 +75,7 @@
                       <li v-if="shop.checkWishList()"><a href="/#/wish-list">Wish List</a></li>
                     </ul>
                   </li>
-                  <li class="menu-item menu-blog" v-if="shop.checkCart()"><a href="/#/checkout">CHECK OUT</a>
+                  <li class="menu-item menu-blog" v-if="checkCart"><a href="/#/checkout">CHECK OUT</a>
                     <ul class="sub-menu">
                       <li><a href="/#/checkout">Check Out</a></li>
                       <li><a href="/#/cart">Cart</a></li>
@@ -139,7 +139,7 @@
 
 <script>
 	export default{
-    props: ['categories', 'products', 'check'],
+    props: ['categories', 'products', 'check', 'checkCart'],
 		data(){
 			return{
 				book: 'book'

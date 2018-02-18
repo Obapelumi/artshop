@@ -82,7 +82,7 @@
               </div>
               <!-- .header-logo-->
 
-             <art-navbar :categories="categories" :check="check" :products="products" ></art-navbar>
+             <art-navbar :categories="categories" :check="check" :checkCart="checkCart" :products="products" ></art-navbar>
               <!-- .header-main-nav-->
             </div>
             <div class="main-nav-wrapper header-right">
