@@ -1,10 +1,10 @@
-# new-folder
+# ArtShop Front End
 
-> A Vue.js project
+> Frotn End UI built on top of Vuejs
 
 ## Build Setup
 
-``` bash
+``` cmd
 # install dependencies
 npm install
 
