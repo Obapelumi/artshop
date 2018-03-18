@@ -53,7 +53,6 @@ export default {
 	},
 	methods: {
         readImage (e) {
-        	console.log('reading');
           var fileReader = new FileReader();
           var $this = this;
           fileReader.onload = (e) => {
@@ -90,7 +89,6 @@ export default {
 	},
 	watch: {
 		upload () {
-			console.log('uploading')
 			if (this.upload === true) {
 				this.theme.imageUpload(this);
 			}

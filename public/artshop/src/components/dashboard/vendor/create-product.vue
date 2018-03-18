@@ -33,6 +33,15 @@
                       </p>
                     </div>
                   </div>
+                  <div class="row" v-if="selectedCategory">
+                    <div class="col-md-6">
+                      <label for="medium"> Tags</label>
+                        <p class="col-xs-6" v-for="tag in selectedCategory.tag" :key="tag.id">
+                          <label for="" style="text-align: center;">{{tag.name}}</label>
+                          <input style="height: 15px; text-align: left;" type="checkbox" :value="tag.id" v-model="product.tags">
+                        </p>
+                    </div>
+                  </div>
                   <p>
                     <label>Images <abbr title="You can upload up to ten images of your work" class="required">?</abbr></label>
                       <art-image-upload 
@@ -179,8 +188,14 @@
           this.vendor.saveDraft(this, '/dashboard');
         },
       },
+      computed: {
+        selectedCategory () {
+          let $this = this;
+          let selectedCategory = $this.categories.filter(category => category.id == $this.product.category_id)[0];
+          return selectedCategory;
+        }
+      },
       created () {
-        console.log('created')
         var $this = this;
         var draft = $this.vendor.getDraft($this)
 

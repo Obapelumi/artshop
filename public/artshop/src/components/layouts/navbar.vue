@@ -2,9 +2,72 @@
  <nav id="primary-menu" class="main-nav" v-if="theme.checkWidth()">
                 <ul class="nav">
                   <li class="active menu-item menu-home"><router-link to="/">Home</router-link></li>
-                  <li class="menu-item menu-blog"><router-link to="/shop">SHOP</router-link>
-                    <ul class="sub-menu">
-                      <li><router-link to="/shop">Find Products</router-link></li>
+                  <li class="mega-menu menu-item"><a href="/#/shop">Shop</a>
+                    <ul class="sub-menu sub-menu-mega">
+                      <li class="sub-menu-mega-item active-menu" v-if="featuredProducts.length > 0 || discountedProducts.length > 0"><a href="#">Products of the Week</a>
+                        <ul>
+                          <li v-if="featuredProducts.length > 0"><a href="#">Products of the week</a>
+                            <ul>
+                              <li v-for="product in featuredProducts" :key="product.id">
+                                <a href="#">
+                                  <img :src="theme.imagePath(product.file[0].path)" 
+                                    :alt="product.name" 
+                                    :title="product.name"
+                                    v-if="product.file.length > 0" 
+                                    style="max-width: 85px; max-height: 100px;"
+                                  />
+                                  <img width="300" height="400" 
+                                    src="/images/logo/logo-black.jpg"
+                                    :alt="product.name" :title="product.name" class="attachment-shop_catalog size-shop_catalog wp-post-image" v-else
+                                    style="max-width: 85px; max-height: 100px;" 
+                                  />
+                                </a>
+                                <p class="mega-right" @click="$router.push('product/' + product.slug)">
+                                  <span class="product-title">{{product.name}}</span>
+                                  <span class="price">
+                                    <ins>
+                                      <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#8358;</span>{{product | discount | money}}</span>
+                                    </ins>
+                                  </span>
+                                </p>
+                              </li>
+                            </ul>
+                          </li>
+                          <li v-if="discountedProducts.length > 0"><a href="#">Flash Sale</a>
+                            <ul>
+                              <li v-for="product in discountedProducts" :key="product.id">
+                                <a href="#">
+                                  <img :src="theme.imagePath(product.file[0].path)" 
+                                    :alt="product.name" 
+                                    :title="product.name"
+                                    v-if="product.file.length > 0" 
+                                    style="max-width: 85px; max-height: 100px;"
+                                  />
+                                  <img width="300" height="400" 
+                                    src="/images/logo/logo-black.jpg"
+                                    :alt="product.name" :title="product.name" class="attachment-shop_catalog size-shop_catalog wp-post-image" v-else
+                                    style="max-width: 85px; max-height: 100px;" 
+                                  />
+                                </a>
+                                <p class="mega-right">
+                                  <span class="product-title">{{product.name}}</span>
+                                  <span class="price">
+                                    <del><span class="woocommerce-Price-amount amount">
+                                      <span class="woocommerce-Price-currencySymbol">&#8358;</span>{{product.price | money}}</span>
+                                    </del>
+                                    <ins>
+                                      <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#8358;</span>{{product | discount | money}}</span>
+                                    </ins>
+                                  </span>
+                                </p>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="sub-menu-mega-item" v-if="products.length > 0"><router-link to="/shop">All Products</router-link>
+                      </li>
+                      <li v-if="checkCart"><a href="/#/cart">Cart</a></li>
                       <li v-if="shop.checkWishList()"><router-link to="/wish-list">Wish List</router-link></li>
                     </ul>
                   </li>
@@ -72,7 +135,6 @@
                   <li class="menu-item menu-blog"><a href="/#/shop">SHOP</a>
                     <ul class="sub-menu">
                       <li><a href="/#/shop">Find Products</a></li>
-                      <li v-if="shop.checkWishList()"><a href="/#/wish-list">Wish List</a></li>
                     </ul>
                   </li>
                   <li class="menu-item menu-blog" v-if="checkCart"><a href="/#/checkout">CHECK OUT</a>
@@ -164,6 +226,15 @@
       },
 			signout () {
 				this.auth.signout(this);
+      },
+    },
+    computed: {
+      featuredProducts () {
+        return this.shop.productsByDisplay(this, 4);
+      },
+      discountedProducts () {
+        var $this = this;
+        return this.products.filter(product => $this.shop.checkDiscount(product)).slice(0,8);
       },
     },
     mounted () {

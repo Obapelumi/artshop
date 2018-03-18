@@ -41,11 +41,11 @@
 							<i class="fa fa-quote-left"></i> Product Reviews <span v-if="reviews.length > 0">{{reviews.length}}</span>
 						</router-link>
 					</li>
-					<li :class="{ active: isStatistics }" v-if="auth.checkAdmin()">
+					<!-- <li :class="{ active: isStatistics }" v-if="auth.checkAdmin()">
 						<router-link to="/dashboard/admin/statistics">
 							<i class="fa fa-bar-chart"></i> Statistics
 						</router-link>
-					</li>
+					</li> -->
 					<li :class="{ active: inviteAdmin }" class="col-lg-6 col-md-6 col-sm-6" v-if="auth.checkAdmin()">
 						<router-link to="/dashboard/invite-admin">
 							<i class="fa fa-user"></i> Invite Admin

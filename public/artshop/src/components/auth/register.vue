@@ -24,6 +24,11 @@
                   <input id="" name="rememberme" value="forever" type="checkbox"> Remember me
                 </label> -->
               </p>
+              <p>OR</p> <br>
+							<p>
+								<art-facebook-login :verb="'CONTINUE'" @setAuth="$emit('setAuth')"></art-facebook-login>
+                <br><br>
+              </p>
               <p class="lost_password"><router-link to="/password-reset">Lost your password?</router-link></p>
               <div class="clear"></div>
             </form>
@@ -49,6 +54,11 @@
                 <div class="clear"></div>
                 <p>
                     <button class="btn btn-transparent" type="submit">REGISTER</button><br><br>
+                </p>
+                <p>OR</p> <br>
+                <p>
+                  <art-facebook-login :verb="'REGISTER'" @setAuth="$emit('setAuth')"></art-facebook-login>
+                  <br><br>
                 </p>
                 <div class="clear"></div>
             </form>

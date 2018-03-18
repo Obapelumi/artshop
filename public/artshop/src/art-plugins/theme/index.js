@@ -26,8 +26,6 @@ const theme = {
                 $this.addClass('owl-carousel');
             }
 
-            //console.log($Nav);
-
             switch ($numberItem) {
 
                 case 1 :
@@ -374,7 +372,6 @@ const theme = {
 
     checkWidth () {
         var width = $(window).width();
-        // console.log(width)
         if (width >= 992) {
           return true
         }
@@ -384,7 +381,6 @@ const theme = {
     },
 
     handle422 ($this, response) {
-        console.log(response)
         for (const [k, v] of Object.entries(response.response.data)) {
           $this.error += v[0] + ' ';
         }

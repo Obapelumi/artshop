@@ -78,6 +78,7 @@ class AuthController extends Controller
         $userMeta = new UserMeta();
         $userMeta->user_id = $user->id;
         $userMeta->verification_code = substr(md5(microtime()),rand(0,26),6);
+        // $userMeta->verification_code = $this->generateRandomCode(6);
         $userMeta->save();
 
         // $result = $this->issueAccessToken($user);
@@ -85,6 +86,54 @@ class AuthController extends Controller
         // Mail::to($result['user']->email)->send(new WelcomeToArtshop($result['user']));
 
         return $user;
+    }
+
+    public function facebookLogin (Request $request) {
+        $data = $request->all();
+        $validator = $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'id' => 'required|numeric',
+        ]);
+
+        if ($validator) {
+            $errors = $validator->errors();
+
+            return response()->json(['status'=> false,
+                                     'message' => $errors, 
+                                    ], 422);
+        }
+
+        $user = User::firstOrCreate(['email' => $data['email']], 
+                                   ['name' => $data['name'],
+                                    'password' => bcrypt($this->generateRandomCode(8)),
+                                   ]);
+        $userMeta = UserMeta::where(['user_id' => $user->id])->first();
+        if (!$userMeta) {
+            $userMeta = UserMeta::firstOrCreate(['platform_id' => $data['id'],
+                                                'platform' => 'facebook',
+                                                'user_id' => $user->id,
+                                                ],
+                                                ['verified' => true]);
+        }
+        else {
+            $userMeta->platform_id = $data['id'];
+            $userMeta->platform = 'facebook';
+            $userMeta->verified = true;
+            $userMeta->update();
+        }
+
+        if ($userMeta->verified != true) {
+            $userMeta->verified = true;
+        }
+        
+        $result = $this->issueAccessToken($user);
+
+        if ($result === false) {
+            return response()->json(['error'=>'Unauthorised facebook'], 405);
+        }
+
+        return response()->json(['token' => $result['token'], 'user' => $result['user']], $this->successStatus);
     }
 
     public function verifyEmail (Request $request) {
@@ -193,7 +242,7 @@ class AuthController extends Controller
     public function resetPassword (Request $request) {
         $data = $request->all();
         $validator = $this->validate($request, [
-            // 'email' => 'required|email|exists:users',
+            'email' => 'required|email|exists:users',
         ]);
 
         if ($validator) {
@@ -203,7 +252,7 @@ class AuthController extends Controller
                                      'message' => $errors, 
                                     ], 422);
         }
-        $user = User::find(['email' => $data['email']]);
+        $user = User::where(['email' => $data['email']])->first();
 
         if (!$user) {
             return response()->json(['error'=>'User not found'], 422);
@@ -232,6 +281,25 @@ class AuthController extends Controller
         if (Mailer::resetPassword($user)) {
             return response()->json(['success'=> 'password reset done'], 200);
         }
+    }
+
+    public static function generateRandomCode ($requestedLength) {
+        function getRandomBytes($nbBytes = 32)
+        {
+            $bytes = openssl_random_pseudo_bytes($nbBytes, $strong);
+            if (false !== $bytes && true === $strong) {
+                return $bytes;
+            }
+            else {
+                throw new \Exception("Unable to generate secure token from OpenSSL.");
+            }
+        }
+
+        function generatePassword($length){
+            return substr(preg_replace("/[^a-zA-Z0-9]/", "", base64_encode(getRandomBytes($length+1))),0,$length);
+        }
+        
+        return generatePassword($requestedLength);    
     }
 
     public function getDetails($id)

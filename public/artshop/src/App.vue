@@ -14,7 +14,9 @@
 	  		:wishList="wishList"
 			:products="products"
 			:vendors="vendors"
-			:categories="categories">
+			:categories="categories"
+			@searchProducts="triggerProductSearch"
+			@searchVendors="triggerVendorSearch">
 	  	</art-header>
 	  	<transition name="fade">
 	  		<router-view 
@@ -28,11 +30,12 @@
 				:tags="tags"
 				:posts="posts"
 				:reviews="reviews"
-				:API_URL="API_URL"
+				:productSearchValue="productSearchValue"
+				:vendorSearchValue="vendorSearchValue"
 				@setAuth="setAuth()"
 				@loadMore="loadMore"
 		  		@updateProduct="getProducts"
-				@updateShop="getShop"
+				@updateShop="getShop()"
 		  		@getMore="loadMore"
 		  		@updateCart="getCart"
 		  		@updateWishList="getWishList"
@@ -68,9 +71,10 @@ export default {
 			},
 			realTime: '',
 			loading: false,
-			API_URL: 'http://localhost:8000/api/',
 			showNewsLetter: false,
 			firstLoad: true,
+			productSearchValue: null,
+			vendorSearchValue: null,
 		}
 	},
 	methods: {
@@ -126,7 +130,7 @@ export default {
 		getShop () {
 			var $this = this;
 			$this.getProducts(); 
-			$this.shop.getVendors($this);
+			$this.vendor.getVendors($this);
 			$this.admin.getBlogPosts($this); 
 			$this.getCart($this); 
 			$this.getWishList($this); 
@@ -144,6 +148,12 @@ export default {
 				this.showNewsLetter = false;
 			}
 		},
+		triggerProductSearch (value) {
+			this.productSearchValue = value;
+		},
+		triggerVendorSearch (value) {
+			this.vendorSearchValue =  value;
+		}
 	},
 
 	mounted () {
@@ -186,6 +196,7 @@ export default {
 		$this.shop.getCategories(this);
 		$this.shop.getTags(this);
 		$this.getCart();
+		$this.setAuth();
 		$this.getWishList();
 		setInterval(function () {
 			$this.loadMore();
@@ -239,8 +250,22 @@ export default {
 	.reject:focus {
 		background-color: #C91713;
 	}
-	/* .router-link-exact-active a {
-		background: #0dab76;
-		color: white;
-	} */
+	.rounded-circle {
+		border-radius: 50%;
+	}
+	#header-search {
+		font-size: 20px;
+		position: relative;
+		left: 33%;
+	}
+	@media (min-width: 472px) {
+		#header-search {
+			left: 27%;
+		}
+	}
+		@media (min-width: 992px) {
+		#header-search {
+			display: none;
+		}
+	}
 </style>

@@ -112,6 +112,9 @@ const admin = {
 	singlePost ($this) {
 		var slug = $this.$route.params.slug;
 		var result = $this.posts.filter(post => post.slug === slug);
+		if (result.length < 1) {
+			$this.$router.push('/not-found');
+		}
 		return result[0];
 	},
 

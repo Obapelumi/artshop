@@ -20,7 +20,7 @@
                     <router-link to="/checkout" v-if="checkCart">Checkout | </router-link>
                     <router-link to="/register" v-if="!check.auth"> Sign up | </router-link> 
                     <router-link to="/login" v-if="!check.auth"> Log in </router-link> 
-                    <router-link to="/dashboard/orders" v-if="auth.checkAdmin()">|       My Account</router-link> <router-link to="/dashboard" v-else-if="check.auth">|       My Account</router-link></div>
+                    <router-link to="/dashboard/orders" v-if="check.admin">|       My Account</router-link> <router-link to="/dashboard" v-else-if="check.auth">|       My Account</router-link></div>
                 </div>
               </div>
               <div class="header-top-logo"><router-link to="/" title="ARTSHOP"><img src="/images/logo/favicon.png" alt="Artshop" class="logo-img" style="margin-left: 40px;"/></router-link>
@@ -83,8 +83,16 @@
               <!-- .header-logo-->
 
              <art-navbar :categories="categories" :check="check" :checkCart="checkCart" :products="products" ></art-navbar>
-              <!-- .header-main-nav-->
+              <a id="header-search" @click.prevent="mobileSearch = true"><i class="fa fa-search"></i></a>
+              <div class="yolo-search-wrapper show" v-if="mobileSearch">
+                <form action="" @submit.prevent="search()">
+                  <input id="search-ajax" v-model="searchValue" placeholder="Enter keyword to search" type="search" required />
+                  <button class="search" type="submit"><i class="fa fa-search"></i></button>
+                  <button class="close" @click.prevent="mobileSearch = false"><i class="pe-7s-close"></i></button>
+                </form>
+              </div>
             </div>
+              <!-- .header-main-nav-->
             <div class="main-nav-wrapper header-right">
               <div class="header-right-box">
                 <div class="header-customize header-customize-right">
@@ -162,68 +170,81 @@
 </template>
 
 <style>
-    header{
-      box-shadow: 0px 1px 3px 0px rgba(0, 38, 0, 0.1);
-    }
+header {
+  box-shadow: 0px 1px 3px 0px rgba(0, 38, 0, 0.1);
+}
 </style>
 
 <script>
-	export default{
-    props: ['cart', 'checkCart', 'check', 'wishList', 'categories', 'products', 'vendors'],
-    data () {
-      return {
-        category_id: 'Categories',
-        searchItem:  'products',
-        searchValue: null,
-      }
+export default {
+  props: [
+    "cart",
+    "checkCart",
+    "check",
+    "wishList",
+    "categories",
+    "products",
+    "vendors"
+  ],
+  data() {
+    return {
+      category_id: "Categories",
+      searchItem: "products",
+      searchValue: null,
+      mobileSearch: false,
+    };
+  },
+  methods: {
+    singleProduct(slug) {
+      var push = "/product/" + slug;
+      this.$router.push(push);
     },
-    methods: {
-      singleProduct (slug) {
-        var push = '/product/' + slug;
-        this.$router.push(push);
-      },
-      search () {
-        if (this.searchItem === 'products') {
-          var $this = this;
-          this.shop.sortingConfig = {
-              filter: 'search',
-              value: $this.searchValue,
-              name: $this.searchValue
-          };
-          this.$router.push('/shop');
-        }
-        else if (this.searchItem === 'vendors') {
-          var $this = this;
-          this.vendor.sortingConfig = {
-              filter: 'search',
-              value: $this.searchValue,
-              name: $this.searchValue
-          };
-          this.$router.push('/vendors');
-        }
-      },
-      logoPath () {
-        if (this.shop.checkCart()) {
-          return '/checkout'
-        }
-        else {
-          return '/'
-        }
-      }
-    },
-    computed: {
-      wishListCount () {
+    search() {
+      if (this.searchItem === "products") {
         var $this = this;
-        if ($this.wishList !== null) {
-          return Object.keys($this.wishList).length;
-        }
-        else {
-          return 0;
-        }
-      },
+        $this.mobileSearch = false;
+        this.shop.sortingConfig = {
+          filter: "search",
+          value: $this.searchValue,
+          name: $this.searchValue
+        };
+        this.$emit('searchProducts', this.searchValue);
+        this.searchValue = null;
+        this.$router.push("/shop");
+      } 
+      else if (this.searchItem === "vendors") {
+        var $this = this;
+        this.vendor.sortingConfig = {
+          filter: "search",
+          value: $this.searchValue,
+          name: $this.searchValue
+        };
+        this.$emit('searchVendors', this.searchValue);
+        this.$router.push("/vendors");
+      }
     },
-    beforeCreate () {
-      
+    showSearch () {
+      this.searchItem = 'products';
+      this.mobileSearch = true;
     },
-	}
+    logoPath() {
+      if (this.shop.checkCart()) {
+        return "/checkout";
+      } else {
+        return "/";
+      }
+    }
+  },
+  computed: {
+    wishListCount() {
+      var $this = this;
+      if ($this.wishList !== null) {
+        return Object.keys($this.wishList).length;
+      } else {
+        return 0;
+      }
+    }
+  },
+  beforeCreate() {}
+};
 </script>

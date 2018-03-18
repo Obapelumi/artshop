@@ -74,7 +74,6 @@ const auth = {
 			})
 			.catch(response => {
 				$this.theme.submitted();
-				console.log(response.message);
 				if (response.message === 'Request failed with status code 405') {
 					var info = 'Please Verify Your email Address';
 					$this.theme.smoke('info', info, 5000);
@@ -118,7 +117,6 @@ const auth = {
 	},
 
 	setToken ($this, next, token, expiresIn, user) {
-		console.log('setting')
 		localStorage.setItem('token', token);
 		localStorage.setItem('expiresIn', expiresIn);
 		localStorage.setItem('user', JSON.stringify(user));
@@ -164,7 +162,10 @@ const auth = {
 				if (token != null) {
 					if (token.length > 5) {
 						return true;	
-					}	
+					}
+					else {
+						return false;
+					}
 				}
 				else {
 					return false;
@@ -185,7 +186,7 @@ const auth = {
 			return false
 		}
 		else {
-			var user = this.getToken().user;
+			var user = JSON.parse(localStorage.getItem('user'));
 			if (user.customer !== null) {
 				return true;
 			}

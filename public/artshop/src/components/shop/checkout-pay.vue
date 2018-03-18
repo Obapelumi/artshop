@@ -1,7 +1,7 @@
 <template>
 	<section>
         <div class="container">
-          <title>Artshop | Payment</title>
+          <title>Payment | Artshop </title>
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">MAKE PAYMENT</h1>
             <div class="woocommerce-checkout-info" v-if="authCheck"><h3>Hi, {{user.name}}! Please Confirm and Make Payment</h3></div>
@@ -118,6 +118,7 @@
     },
     created () {
       if (this.auth.checkAuth() === true) {
+        this.theme.getConfig(this);	
         this.authCheck = true;
         this.user = this.auth.getUser(this); 
         this.customer = this.user.customer
@@ -125,7 +126,7 @@
       }
     },
     beforeDestroy () {
-      this.paying - false;
+      this.paying = false;
     }
 	}
 </script>

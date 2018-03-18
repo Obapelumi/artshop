@@ -21,6 +21,12 @@
               <p>
                 <button class="btn btn-transparent" type="submit">LOGIN</button><br><br>
               </p>
+							<p>OR</p> <br>
+							<p>
+								<art-facebook-login :verb="'CONTINUE'" @setAuth="$emit('setAuth')"></art-facebook-login>
+                <br><br>
+              </p>
+							<br>
 							<p class="lost_password">
 								<router-link to="/register">Don't have an account?</router-link> <br>
 								<router-link to="/password-reset">Lost your password?</router-link>
@@ -43,7 +49,7 @@
 		methods: {
 			showLogin() {
 			    $('.login').slideToggle("slow");
-      },
+			},
 			login() {
 				var $this = this;
 				this.$validator.validateAll().then(() => {
@@ -52,41 +58,20 @@
 			},
 		},
 		mounted () {
-      this.showLogin();
-    }
+			this.showLogin();
+		},
+		created () {
+
+		}
 	}
 </script>
 
 <style>
-
 	#login .sperator {
 		margin-top: 70px;
 	}
 
-/*	#login .newletter-content .email-label {
-		position: relative;
-		left: -37.5%;
-	}
-
-	#login .newletter-content .password-label {
-		position: relative;
-		left: -36%;
-	}*/
-
 	#login .submit {
 		text-align: center;
 	}
-
-/*	#login .newletter-content .btn {
-	    display: inline-block;
-	    margin-top: 20px;
-	    padding: 10px 20px;
-	    text-transform: uppercase;
-	    border-radius: 0;
-	}*/
-
-/*	#login .newletter-content .btn:hover {
-	    color: #fff;
-	    background: #0dab76;
-	}*/
 </style>

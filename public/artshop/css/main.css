@@ -75,12 +75,17 @@ ul {
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-left: -100px; 
+  margin-left: -74px; 
   margin-top: -70px; 
   height:155px; 
   width: 150px;
   border-radius: 43%;
   z-index: 99;
+}
+@media(min-width: 768px) {
+  #loader-image {
+    margin-left: -100px;
+  } 
 }
 /* End Obapelumi Styles */
 .attachment-shop_catalog {
@@ -12389,7 +12394,7 @@ ul.intagram li:hover {
   color: #fff;
   opacity: 1;
   position: fixed;
-  right: 50px;
+  right: 20px;
   top: 50px;
   z-index: 22;
 }

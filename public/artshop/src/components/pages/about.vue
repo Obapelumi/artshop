@@ -33,7 +33,7 @@
                           <h2>GET IN TOUCH</h2>
                           <div class="row">
                             <div class="contact-bottom-left col-md-8">
-                              <form ACTION="mailto:contactus@artshop.com.ng" METHOD="POST" enctype="text/plain" class="wpcf7-form">
+                              <form ACTION="https://formspree.io/obapelumi@artshop.com.ng" METHOD="POST" @submit="theme.smoke('info', 'Thanks for reaching out! We will be in contact soon', 7000)" enctype="text/plain" class="wpcf7-form">
                                 <p></p>
                                 <h6>NAME *</h6>
                                 <p>

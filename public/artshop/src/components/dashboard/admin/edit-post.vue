@@ -83,7 +83,6 @@ export default {
         this.setMeta();
     },
     mounted () {
-        console.log('mounted')
         this.theme.getCKEditor(this, 'edit_blog_body', 'body');
     },
     beforeDestroy () {

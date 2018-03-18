@@ -215,7 +215,7 @@ export default {
             this.admin.addCategory(this);
         },
         deleteCategory () {
-            this.admin.deleteCategory(this, tag.category_id);
+            this.admin.deleteCategory(this, this.tag.category_id);
         },
         addTag() {
             this.admin.addTag(this);

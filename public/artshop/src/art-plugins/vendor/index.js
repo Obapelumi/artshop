@@ -6,8 +6,6 @@ const vendor = {
 
         $this.axios.post('vendor', data)
             .then(response => {
-                $this.theme.submitted();
-                console.log(response);
                 if (response.data.status == true) {
                     var user = $this.auth.getUser();
                     user.vendor = response.data.vendor;
@@ -16,19 +14,19 @@ const vendor = {
                     $this.meta.image.vendor_id = response.data.vendor.id;
                     $this.meta.image.slug = response.data.vendor.slug;
                     $this.uploadImage = true;
-                    setTimeout(function(){
-                        localStorage.setItem('user', JSON.stringify(user));
-                        $this.$router.push(next);
-                    }, 3000);
+                    localStorage.setItem('user', JSON.stringify(user));
+                    $this.$emit('setAuth');
+                    $this.$router.push('/dashboard/create-product');
                 }
                 else {
                     var errorMessage = response.data.message;
                     $this.theme.smoke('error', errorMessage, 10000);
                 }
+                $this.theme.submitted();
             })
             .catch(response => {
                 $this.theme.submitted();
-                var errorMessage = 'There was an issue please try again';
+                var errorMessage = 'Please check your Account Number and Bank Code, then try again';
                 $this.theme.smoke('error', errorMessage, 10000);
             });
     },

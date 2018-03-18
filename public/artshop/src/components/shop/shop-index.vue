@@ -33,7 +33,6 @@
                         <aside class="sort-by">
                           <h4>Sort By</h4>
                           <ul>
-                            <li>Default</li>
                             <li><a href="#" @click.prevent="sortByRating" >Average rating</a></li>
                             <li><a href="#" @click.prevent="sortByLatest">Newness</a></li>
                             <li><a href="#" @click.prevent="sortByPrice(false)">Price: Low to High</a></li>
@@ -62,7 +61,14 @@
                         <aside class="tagcloud">
                           <h4>tags</h4>
                           <ul class="tagcloud">
-                            <li><a href="#" v-for="tag in tags" :key="tag.id">{{tag.name}}</a></li>
+                            <li>
+                              <a 
+                                href="#" 
+                                v-for="tag in tags" 
+                                :key="tag.id"
+                                @click.prevent="byTag(tag.id, tag.name)"
+                              >{{tag.name}}</a>
+                            </li>
                           </ul>
                         </aside>
                       </div>
@@ -110,134 +116,162 @@
 </template>
 
 <script>
-	export default{
-    props: ['categories', 'products', 'tags'],
-		data(){
-			return{
-				shopProducts: [],
-				take: 16,
-        showFilter: false,
-        showSearch: false,
-        pageName: null,
-        priceRange: 0,
-        searchValue: null,
-        firstLoad: true,
-			}
-		},
-		methods: {
-			filterShower() {
-        if (this.showFilter === true ) {
-          this.showFilter = false; 
-        }
-        else {
-          this.showFilter = true;  
-        }
-			},
-			searchShower() {
-        if (this.showSearch === true ) {
-          this.showSearch = false;  
-        }
-        else {
-          this.showSearch = true; 
-        }
-			},
-			loadMore() {
-        this.theme.submitting();
-        this.$emit('loadMore');
-			},
-      byCategory(id, name) {
-        var value = {
-          id: id,
-          name: name
-        }
-        this.shopProducts = this.shop.productFilter(this, 'category', value, this.take);
-      },
-      sortByRating () {
-        this.shop.sortingConfig.name = 'Sort by Product Rating';
-        this.shopProducts = this.shop.sortByRating(this, this.products);
-      },
-      sortByPrice (desc) {
-        this.shop.sortingConfig.name = 'Sort by Product Price';
-        this.shopProducts = this.shop.sortByPrice(this.products, desc);
-      },
-      sortByLatest () {
-        this.shop.sortingConfig.name = 'Sort by Newness';
-        this.shopProducts = this.shop.sortByLatest(this.products);
-      },
-      filterByPrice () {
-        var products = this.products.filter(product => {
-          var discountedPrice = this.shop.getProductDiscount(product); 
+export default {
+  props: ["categories", "products", "tags", "productSearchValue"],
+  data() {
+    return {
+      shopProducts: [],
+      take: 16,
+      showFilter: false,
+      showSearch: false,
+      pageName: null,
+      priceRange: 0,
+      searchValue: null,
+      firstLoad: true
+    };
+  },
+  methods: {
+    filterShower() {
+      if (this.showFilter === true) {
+        this.showFilter = false;
+      } else {
+        this.showFilter = true;
+      }
+    },
+    searchShower() {
+      if (this.showSearch === true) {
+        this.showSearch = false;
+      } else {
+        this.showSearch = true;
+      }
+    },
+    loadMore() {
+      this.theme.submitting();
+      this.$emit("loadMore");
+    },
+    byCategory(id, name) {
+      var value = {
+        id: id,
+        name: name
+      };
+      this.shopProducts = this.shop.productFilter(
+        this,
+        "category",
+        value,
+        this.take
+      );
+    },
+    byTag(id, name) {
+      let value = {
+        id: id,
+        name: name
+      };
+      this.shopProducts = this.shop.productFilter(
+        this,
+        "tag",
+        value,
+        this.take
+      );
+    },
+    sortByRating() {
+      this.shop.sortingConfig.name = "Sort by Product Rating";
+      this.shopProducts = this.shop.sortByRating(this, this.products);
+    },
+    sortByPrice(desc) {
+      this.shop.sortingConfig.name = "Sort by Product Price";
+      this.shopProducts = this.shop.sortByPrice(this.products, desc);
+    },
+    sortByLatest() {
+      this.shop.sortingConfig.name = "Sort by Newness";
+      this.shopProducts = this.shop.sortByLatest(this.products);
+    },
+    filterByPrice() {
+      var products = this.products.filter(product => {
+        var discountedPrice = this.shop.getProductDiscount(product);
 
-          if (discountedPrice <= this.priceRange) {
-            return true;
-          }
-        });
-        this.shopProducts = this.shop.sortByPrice(products, true);
-      },
-      allProducts () {
-        this.shop.sortingConfig.name = null;
-        this.shopProducts = this.products.slice(0, this.take)
-      },
-      setProducts () {
-        this.shopProducts = this.shop.sortProducts(this, this.take);
-        this.priceRange = this.maxPrice;
-        this.firstLoad = false;
-      },
-      search () {
-        var $this = this;
-        this.shop.sortingConfig = {
-          filter: 'search',
-          value: $this.searchValue,
-          name: $this.searchValue,
-        };
-        this.checkSearch();
-      },
-      checkSearch () {
-        if (this.shop.sortingConfig.filter === 'search') {
-            this.shop.search(this, this.shop.sortingConfig.value);
+        if (discountedPrice <= this.priceRange) {
+          return true;
         }
-      },
-      updateCart () {
-        this.$emit('updateCart');
-      },
-      updateWishList () {
-        this.$emit('updateWishList');
-      },
-		},
-		computed: {
-      maxPrice () {
-        return Math.max.apply(Math, this.products.map(function(product){
-            return product.price;
-          }));
-      }
-		},
-    watch: {
-      products () {
-        this.setProducts();
-      },
+      });
+      this.shopProducts = this.shop.sortByPrice(products, true);
     },
-    created () {
-      if (this.products.length > 0) {
-          this.setProducts();
-          this.checkSearch();
-      }
+    allProducts() {
+      this.shop.sortingConfig.name = null;
+      this.shopProducts = this.products.slice(0, this.take);
     },
-    mounted () {
-      this.searchShower();
+    setProducts() {
+      this.shopProducts = this.shop.sortProducts(this, this.take);
+      this.priceRange = this.maxPrice;
+      this.firstLoad = false;
     },
-    beforeDestroy () {
+    search() {
+      var $this = this;
       this.shop.sortingConfig = {
-        filter: null,
-        value: null,
-        name: null
+        filter: "search",
+        value: $this.searchValue,
+        name: $this.searchValue
+      };
+      this.checkSearch();
+    },
+    checkSearch() {
+      if (this.shop.sortingConfig.filter === "search") {
+        this.shop.search(this, this.shop.sortingConfig.value);
       }
+    },
+    updateCart() {
+      this.$emit("updateCart");
+    },
+    updateWishList() {
+      this.$emit("updateWishList");
     }
-	}
+  },
+  computed: {
+    maxPrice() {
+      return Math.max.apply(
+        Math,
+        this.products.map(function(product) {
+          return product.price;
+        })
+      );
+    }
+  },
+  watch: {
+    products() {
+      this.setProducts();
+    },
+    productSearchValue() {
+      this.searchValue = this.productSearchValue;
+      $("html, body").animate(
+        {
+          scrollTop: 400,
+          queue: false
+        },
+        500
+      );
+      this.search();
+    }
+  },
+  created() {
+    if (this.products.length > 0) {
+      this.setProducts();
+      this.checkSearch();
+    }
+  },
+  mounted() {
+    this.searchShower();
+  },
+  beforeDestroy() {
+    this.shop.sortingConfig = {
+      filter: null,
+      value: null,
+      name: null
+    };
+  }
+};
 </script>
 
 <style>
-	.artshop-hide {
-		display: none;
-	}
-
+.artshop-hide {
+  display: none;
+}
 </style>

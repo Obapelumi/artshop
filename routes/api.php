@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /* Authentication Routes */
 Route::post('signin', 'AuthController@signin');
 Route::post('signup', 'AuthController@directSignup');
+Route::post('facebook-login', 'AuthController@facebookLogin');
 
 
 /* Utility Routes */

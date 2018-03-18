@@ -78,10 +78,7 @@ class ProductController extends Controller
         $data = $request->all();
 
         $validator = $this->validate($request, [
-            // 'user_id' => 'required|numeric|exists:vendors,user_id',
             'category_id' => 'required|numeric|exists:categories,id',
-            // 'handling' => 'required|numeric', // |exists:handlings,id
-            // 'tags' => 'nullable|numeric|exists:tags,id',
             'name' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric',

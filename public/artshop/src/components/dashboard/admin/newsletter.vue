@@ -72,7 +72,6 @@ export default {
     //   this.setLetters();
     },
     mounted () {
-        console.log('mounted')
         this.theme.getCKEditor(this, 'newsletter_body', 'body')
     },
     beforeDestroy () {

@@ -161,12 +161,10 @@ export default{
     },
   },
   mounted () {
-  	console.log('mounted')
     this.theme.carousel();
     this.theme.carousel2();
   },
   created () {
-    console.log('created');
     if (this.products) {
       this.setProduct();
     }

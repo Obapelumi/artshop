@@ -8,7 +8,7 @@
                     <div class="col-md-6">
                       <p>
                         <label>First Name <abbr title="required" class="required">*</abbr></label>
-                        <input type="text" v-model="firstName">
+                        <input type="text" v-model="firstName" required>
                       </p>
                     </div>
                     <div class="col-md-6">
@@ -22,13 +22,13 @@
                     <div class="col-md-6">
                       <p>
                         <label>E-mail <abbr title="required" class="required">*</abbr></label>
-                        <input type="text" v-model="email" >
+                        <input type="email" v-model="email" required>
                       </p>
                     </div>
                     <div class="col-md-6">
                       <p>
                         <label>Role <abbr title="required" class="required">*</abbr></label>
-                        <select v-model="isAdmin">
+                        <select v-model="isAdmin" required>
                         	<option value="true">Administrator</option>
                         	<option value="false">Blogger</option>
                         </select>
@@ -37,12 +37,11 @@
                     <div class="col-md-6">
                       <p>
                         <label>Phone Number <abbr title="required" class="required">*</abbr></label>
-                        <input type="text" v-model="phone" >
+                        <input type="tel" v-model="phone" required>
                       </p>
                     </div>
                   </div>
-                  
-                    <div class="clear"></div>
+                  <div class="clear"></div>
                   </div>
                   <div class="button-cart-right">
                     <button class="btn btn-transparent" style="margin-left: 50%; margin-top: 30px;" type="submit" @click.prevent="register"> Submit</button>

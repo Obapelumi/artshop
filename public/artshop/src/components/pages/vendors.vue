@@ -69,7 +69,7 @@
 
 <script>
 export default {
-	props: ['vendors', 'categories'],
+	props: ['vendors', 'categories', 'vendorSearchValue'],
 	data () {
 		return {
       displayedVendors: [],
@@ -110,7 +110,7 @@ export default {
     },
     vendorByCategory (id, name) {
       this.vendor.sortingConfig.name = name;
-      this.displayedVendors = this.vendors.filter(vendor => vendor.category.id === id);
+      this.displayedVendors = this.vendors.filter(vendor => vendor.category_id == id);
     },
     singleVendor (slug) {
       this.$router.push('/vendors/' + slug);
@@ -125,6 +125,17 @@ export default {
     vendors () {
       this.setVendors();
     },
+    vendorSearchValue () {
+      this.searchValue = this.vendorSearchValue;
+      $("html, body").animate(
+        {
+          scrollTop: 400,
+          queue: false
+        },
+        500
+      );
+      this.search();
+    }
   },
   created () {
     if (this.vendors.length > 0) {

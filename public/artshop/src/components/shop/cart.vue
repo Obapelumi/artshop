@@ -1,7 +1,7 @@
 <template>
 <section>
   <div class="container">
-    <title>Artshop | Cart</title>
+    <title>Cart | Artshop</title>
     <h1>SHOPPING CART</h1>
     <form class="cart-form">
     <art-cart-table 

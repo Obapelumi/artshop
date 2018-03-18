@@ -5,7 +5,7 @@
           <div class="form-customers" id="returning-customer">
             <h1 class="check-out-title">REGISTER</h1>
             <div class="woocommerce-checkout-info" v-if="authCheck">
-              <h3>Welcome, {{user.name}}<br><br> Please fill in your account details</h3>
+              <h3>Hi, {{user.name}}<br><br> Please fill in your account details</h3>
             </div>
           </div>
           <form class="cart-form" @submit.prevent="register">
@@ -52,9 +52,19 @@
                     </p>
                      <div class="row">
                     <div class="col-md-6">
+                      <p>
+                        <label>Country <abbr title="required" class="required">*</abbr></label>
+                      <select id="billing_country" class="country_to_state country_select" v-model="vendorObj.country_code">
+                        <option v-for="country in countries" :value="country.country" :key="country.country">{{country.country}}</option>
+                      </select>
+                      </p>
+                    </div>
+                    <div class="col-md-6">
                     <p>
                       <label>State <abbr title="required" class="required"><i class="fa fa-question"></i></abbr></label>
-                      <input type="text" v-model="vendorObj.state" required>
+                      <select class="country_to_state country_select" v-model="vendorObj.state">
+                        <option v-for="state in states" :value="state" :key="state">{{state}}</option>
+                      </select>
                     </p>
                     </div>
                     <div class="col-md-6">
@@ -71,18 +81,12 @@
                     </div>
                     <div class="col-md-6">
                       <p>
-                        <label>BANK CODE<abbr title="Fill in the sort code for the bank you use" class="required"><i class="fa fa-question"></i></abbr></label>
-                        <input type="text" v-model="vendorObj.bank_code" required>
+                        <label>BANK<abbr title="Select the Bank you use" class="required"><i class="fa fa-question"></i></abbr></label>
+                        <select type="text" v-model="vendorObj.bank_code" required>
+                          <option v-for="sort_code in sort_codes" :key="sort_code.code" :value="sort_code.code">{{sort_code.name}}</option>
+                        </select>
                       </p>
                     </div>
-                    <!-- <div class="col-md-6">
-                      <p>
-                        <label>Country <abbr title="required" class="required">*</abbr></label>
-                      <select id="billing_country" class="country_to_state country_select" v-model="vendorObj.country_code">
-                        <option v-for="country in countries" :value="country.name" :key="country.name">{{country.name}}</option>
-                      </select>
-                      </p>
-                    </div> -->
                   </div>
                 </div>
               </div>
@@ -106,6 +110,7 @@
 				returningEmail: '',
         returningPassword: '',
         categories: [],
+        countries: [],
         checkout: true,
         authCheck: false,
         uploadImage: false,
@@ -126,6 +131,7 @@
           bank_code: '',
           country_code: '',
         },
+        sort_codes: []
 			}
 		},
 		methods: {
@@ -136,12 +142,38 @@
         this.auth.login(this, '/pay', this.returningEmail, this.returningPassword);
       },
       register () {
-        this.vendorObj.address = this.vendorObj.address + '. ' + this.vendorObj.state
+        this.vendorObj.address = this.vendorObj.address + '. ' + this.vendorObj.state + ', ' + this.vendorObj.country_code;
         this.vendor.register(this, '/dashboard');
+      },
+      getDropDowns () {
+        let baseURL = this.theme.config.SITE_URL + '/api';
+        let $this = this;
+        this.axios.defaults.baseURL = this.theme.config.SITE_URL;
+        // this.axios.defaults.baseURL = 'http://localhost:8080';
+        this.axios.get('countries.json')
+          .then(response => {
+            this.countries = response.data.countries;
+          });
+        this.axios.get('sort_codes.json')
+          .then(response => {
+            this.sort_codes = response.data.sort_codes;
+          });
+        $this.axios.defaults.baseURL = baseURL;
       }
-		},
+    },
+    computed: {
+      states () {
+        if (this.countries.length > 0) {
+          let country = this.countries.filter(country => country.country == this.vendorObj.country_code);
+          if (country.length > 0) {
+            return country[0].states;
+          }
+          return [];
+        }
+        return [];
+      }
+    },
     beforeCreate () {
-      console.log('creating')
       this.shop.getCategories(this);
     },
     created () {
@@ -149,7 +181,7 @@
         this.authCheck = true;
         this.user = this.auth.getUser(this);
         this.vendorObj.brand_name = this.user.name;
-        this.theme.getCountries(this); 
+        this.getDropDowns();
       }
     },
 	}

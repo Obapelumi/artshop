@@ -23,7 +23,7 @@
                   <a class="entry-thumbnail_overlay">
                     <img :src="theme.imagePath(post.file.path)" 
                       :alt="post.title" 
-                      style="width:100%; height:640px;" 
+                      style="max-width:100%; max-height:640px;" 
                       class="img-responsive"
                     />
                   </a>
@@ -134,7 +134,7 @@
                             </p> -->
                             <div class="yolo-sm-12">
                               <p class="comment-form-comment">
-                                <textarea id="comment" placeholder="Enter Your Comment" name="comment" cols="40" rows="4" aria-required="true" class="form-control" v-model="commentObj.comment"></textarea>
+                                <textarea id="comment" placeholder="Enter Your Comment" name="comment" cols="40" rows="4" aria-required="true" class="form-control" v-model="commentObj.comment" required></textarea>
                               </p>
                             </div>
                           </div>

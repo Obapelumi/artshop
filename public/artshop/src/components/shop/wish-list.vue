@@ -1,6 +1,6 @@
 <template>
 <section class="wishlist">
-  <title>Artshop | Wish List</title>
+  <title>Wish List | Artshop</title>
   <div class="container">
     <form class="wishlist-form">
       <h2>My wishlist on ARTSHOP</h2>

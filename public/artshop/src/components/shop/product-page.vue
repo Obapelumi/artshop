@@ -1,5 +1,5 @@
 <template>
-<div id="example-wrapper" class="single-product has-header">
+<div id="example-wrapper" class="single-product has-header" v-if="products.length > 0">
       <art-page-header :page="'shop'" :subPage="product.name" :metaTags="metaTags"></art-page-header>
       <section class="product-information">
         <div class="container">
@@ -100,7 +100,13 @@
                 <div class="social-share-wrap" v-if="product.tag.length > 0">
                   <label>Tags:</label>
                   <ul class="social-share">
-                    <li><a href="#" v-for="tag in product.tag" :key="tag.id">{{tag.name}}</a></li>
+                    <li>
+                      <a href="#" 
+                        v-for="tag in product.tag" 
+                        :key="tag.id"
+                        @click="byTag(tag.id, tag.name)"
+                      >{{tag.name}}</a>
+                    </li>
                   </ul>
                 </div>
                 <div class="social-share-wrap">
@@ -206,6 +212,7 @@
       </section>
       <art-related-products :products="relatedProducts"></art-related-products>
 </div>
+<art-loading v-else></art-loading>
 </template>
 
 <script>
@@ -238,6 +245,14 @@ export default{
           name: name
         }
         this.shopProducts = this.shop.productFilter(this, 'category', value, this.take);
+        this.$router.push('/shop');
+      },
+      byTag(id, name) {
+        var value = {
+          id: id,
+          name: name
+        }
+        this.shopProducts = this.shop.productFilter(this, 'tag', value, this.take);
         this.$router.push('/shop');
       },
 		addToCart () {
@@ -302,14 +317,17 @@ export default{
   watch: {
     products () {
       this.setProduct();
+      this.theme.carousel();
+      this.theme.carousel2();
     },
   },
   mounted () {
-    this.theme.carousel();
-    this.theme.carousel2();
+    if (this.products) {
+      this.theme.carousel();
+      this.theme.carousel2();
+    }
   },
   created () {
-    console.log('created');
     if (this.products) {
       this.setProduct();
     }

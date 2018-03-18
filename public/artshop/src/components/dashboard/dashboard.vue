@@ -51,8 +51,6 @@
 				admins: [],
 				myOrders: [],
 				newsletters: [],
-				// thisVendor: null,
-				// thisAdmin: null,
 			}
 		},
 		methods: {
@@ -67,6 +65,7 @@
 			},
 			adminData () {				
 				if (this.auth.checkAdmin()) {
+					this.$emit('updateProduct');
 					this.shop.getOrders(this);
 					this.admin.getNewsLetters(this);
 					this.admin.getAdmins(this);

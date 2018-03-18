@@ -31,7 +31,7 @@ class AdminController extends AuthController
 
         $validator = $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required',
             'c_password' => 'required|same:password',
             'phone' => 'required|phone|unique:admins',

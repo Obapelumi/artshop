@@ -48,7 +48,7 @@
                   </div>
                 </div>
                 <div class="portfolio-info-box">
-                  <h6 class="p-color p-font">Follow</h6>
+                  <h6 class="p-color p-font">Share</h6>
                   <ul class="portfolio-social-profile-wrapper">
                     <li>
                       <a :href="'https://twitter.com/share?url=' + theme.config.SITE_URL + '/vendors/' + thisVendor.slug + '&amp;text=' + thisVendor.brand_name" target="_blank"><i class="fa fa-twitter"></i></a>
@@ -111,6 +111,7 @@
         </div>
       </div>
 </div>
+<art-loading v-else></art-loading>
 </template>
 
 <script>

@@ -41,7 +41,7 @@
       reset() {
         var $this = this
         $this.theme.submitting();
-        this.axios.post('mail/password-reset')
+        this.axios.post('mail/password-reset', {email: $this.email})
           .then(response => {
             $this.theme.submitted();
             $this.theme.smoke('success', 'Your new password has been sent to your e-mail address', 5000);

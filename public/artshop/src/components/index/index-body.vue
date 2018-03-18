@@ -5,13 +5,13 @@
           <div class="slide-home slide-home-1">
             <div data-number="1" data-margin="100" data-loop="yes" data-navcontrol="yes" class="sofani-owl-carousel">
               <div class="slide1">
-                <div class="slide1-left" style="background-color: rgba(51, 51, 51, 0.7); padding: 20px;">
-                  <div class="title">THE HOME OF NIGERIAN ART</div>
-                  <h1 style="color: #fff;">Artshop</h1>
-                  <p style="color: #fff;">
+                <div class="slide1-left" style="background-color: rgba(51, 51, 51, 0.0); padding: 20px;">
+                  <div class="title" style="background-color: rgba(51, 51, 51, 0.0); color: rgba(256,256,256,0); ">THE HOME OF NIGERIAN ART</div>
+                  <h1 style="color: rgba(256,256,256,0);">Artshop</h1>
+                  <p style="color: rgba(256,256,256,0);">
                     ArtShopNG is Nigeria’s leading online marketplace for Art, Crafts and Textile Prints, connecting people with art, crafts and textile prints they love.
                   </p>
-                  <router-link to="/shop" style="color: #fff; border-color: #fff;">SHOP NOW</router-link>
+                  <router-link to="/shop" style="color: rgba(256,256,256,0); border-color: rgba(256,256,256,0);">SHOP NOW</router-link>
                 </div>
                 <div class="slide1-right">
                   <figure>

@@ -27,7 +27,6 @@ export default{
 	},
 	methods: {
 		hide () {
-			console.log('hide')
 			this.show = false
 		},
 	},
