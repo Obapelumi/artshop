@@ -9,7 +9,7 @@
 ## Introduction, Overview & Features
 
 ### About
-**[ArtshopNG](http://artshop.com.ng)** seeks to be the world’s leading online marketplace for Nigeria Art, Crafts and Textile Prints. **[ArtshopNG](http://artshop.com.ng)** promotes the beauty of the Nigerian culture by creating an online community where crafters, artists and makers could sell their handmade, vintage goods and craft supplies. <br>
+**[ArtshopNG](http://artshop.com.ng)** seeks to be the world’s leading online marketplace for Nigeria Art, Crafts and Textile Prints. **[ArtshopNG](http://artshop.com.ng)** promotes the beauty of the Nigerian culture by creating an online community where crafters, artists and makers could sell their handmade, vintage goods and craft supplies.
 
 There are three types of users on the platform: Customers, Vendors and Administrators. Vendors register and can add products which are then reviewed by the Administrator before they are displayed for Customers to purchase. When paymment is made the amount is split between **[ArtshopNG](http://artshop.com.ng)** and the vendor whose product was purchased.
 
