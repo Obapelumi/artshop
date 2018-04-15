@@ -1,23 +1,22 @@
 # ArtshopNG Technical Documentation
+* 1. [Introduction, Overview & Features](#IntroductionOverviewFeatures)
+	* 1.1. [About](#About)
+	* 1.2. [Technical Overview](#TechnicalOverview)
+		* 1.2.1. [Front-End Technology Stack](#Front-EndTechnologyStack)
+		* 1.2.2. [Back-End Technology Stack](#Back-EndTechnologyStack)
 
-## Table Of Contents
-1. [Introduction, Overview & Features](#introduction)
-2. [ARTSHOP API](#artshop-api)
-3. [ARTSHOP Front-End](#artshop-frontend)
-4. [Contributing](#contributing)
+##  1. <a name='IntroductionOverviewFeatures'></a>Introduction, Overview & Features
 
-## Introduction, Overview & Features
-
-### About
+###  1.1. <a name='About'></a>About
 **[ArtshopNG](http://artshop.com.ng)** seeks to be the world’s leading online marketplace for Nigeria Art, Crafts and Textile Prints. **[ArtshopNG](http://artshop.com.ng)** promotes the beauty of the Nigerian culture by creating an online community where crafters, artists and makers could sell their handmade, vintage goods and craft supplies.
 
 There are three types of users on the platform: Customers, Vendors and Administrators. Vendors register and can add products which are then reviewed by the Administrator before they are displayed for Customers to purchase. When paymment is made the amount is split between **[ArtshopNG](http://artshop.com.ng)** and the vendor whose product was purchased.
 
 
-### Technical Overview
+###  1.2. <a name='TechnicalOverview'></a>Technical Overview
 The project was built as a RESTful-api on the back-end with [Laravel](https://laravel.com) and MySQL. The Presentation Layer is a [Vuejs](https://vuejs.org) single page web application which gets data from the [Laravel](https://laravel.com) backend. **[ArtshopNG](http://artshop.com.ng)** integrates with [Paystack](https://paystack.com) as its payment solution to recieve money and handle payouts to Vendors whose products were purchased. Asides [Laravel](https://laravel.com) and [Vuejs](https://vuejs.org) **[ArtshopNG](http://artshop.com.ng)** uses several other technologies. Here is a comprehensive list of frameworks, libraries and packages used in this applicatiion:
 
-#### Front-End Technology Stack
+####  1.2.1. <a name='Front-EndTechnologyStack'></a>Front-End Technology Stack
 - HTML5, CSS3, Javascript
 - [Bootstrap CSS](https://getbootstrap.com)
 - [Sofani - Furniture Store HTML Template](https://themeforest.net/item/sofani-furniture-store-html-template/19892365) and its dependencies.
@@ -27,7 +26,7 @@ The project was built as a RESTful-api on the back-end with [Laravel](https://la
 - [Axios.js](https://github.com/axios/axios) for AJAX requests
 - [Smoke.js](https://smoke-js.com/) for Alerts
 
-#### Back-End Technology Stack
+####  1.2.2. <a name='Back-EndTechnologyStack'></a>Back-End Technology Stack
 
 - [PHP 7.1.16](http://php.net) - MySQL - [Laravel 5.4](https://laravel.com/docs/5.4)
 - [Laravel Passport](https://laravel.com/docs/5.4/passport) for OAuth
