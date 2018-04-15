@@ -12,9 +12,11 @@ class Payout
 	protected $URL;
 
 	public function __construct() {
-		$this->P_KEY = 'pk_test_63fbe44f64ec22de32b7ad8e1ed84c1375d50f7c';
-		$this->S_KEY = 'sk_test_5d6122c1135b280b393fa16bd7c07155f33f32bc';
-		$this->URL = 'https://api.paystack.co';
+		// $this->P_KEY = 'pk_test_63fbe44f64ec22de32b7ad8e1ed84c1375d50f7c';
+		$this->P_KEY = config('app.paystackPK');
+		// $this->S_KEY = 'sk_test_5d6122c1135b280b393fa16bd7c07155f33f32bc';
+		$this->S_KEY = config('app.paystackSK');
+		$this->URL = config('app.paystackURL');
 	}
 
 	public function createTransferRecipient ($data) {

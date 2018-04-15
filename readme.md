@@ -1,47 +1,38 @@
-## Application structure
+# ArtshopNG Technical Documentation
 
-The project is a Laravel based rest api with a Vuejs front end. The entry point of the vuejs app is resources/views/welcome.blade.php
-The vue js app itself lives in public/artshop. We will appreciate all the help you can give with this. I'll try to write a comprehensive documentation soon. Thanks!
+<!-- The project is a Laravel based rest api with a Vuejs front end. The entry point of the vuejs app is resources/views/welcome.blade.php
+The vue js app itself lives in public/artshop. We will appreciate all the help you can give with this. Thanks! -->
 
-## About Laravel
+## Table Of Contents
+1. [Introduction, Overview & Features](#introduction)
+2. [ARTSHOP API](#artshop-api)
+3. [ARTSHOP Front-End](#artshop-frontend)
+4. [Contributing](#contributing)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Introduction, Overview & Features <a name="introduction"></a>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### About
+**[ArtshopNG](http://artshop.com.ng)** seeks to be the world’s leading online marketplace for Nigeria Art, Crafts and Textile Prints. **[ArtshopNG](http://artshop.com.ng)** promotes the beauty of the Nigerian culture by creating an online community where crafters, artists and makers could sell their handmade, vintage goods and craft supplies. <br>
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+There are three types of users on the platform: Customers, Vendors and Administrators. Vendors register and can add products which are then reviewed by the Administrator before they are displayed for Customers to purchase. When paymment is made the amount is split between **[ArtshopNG](http://artshop.com.ng)** and the vendor whose product was purchased.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+### Technical Overview
+The project was built as a RESTful-api on the back-end with [Laravel](https://laravel.com) and MySQL. The Presentation Layer is a [Vuejs](https://vuejs.org) single page web application which gets data from the [Laravel](https://laravel.com) backend. **[ArtshopNG](http://artshop.com.ng)** integrates with [Paystack](https://paystack.com) as its payment solution to recieve money and handle payouts to Vendors whose products were purchased. Asides [Laravel](https://laravel.com) and [Vuejs](https://vuejs.org) **[ArtshopNG](http://artshop.com.ng)** uses several other technologies. Here is a comprehensive list of frameworks, libraries and packages used in this applicatiion:
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+#### Front-End Technology Stack
+- HTML5, CSS3, Javascript
+- [Bootstrap CSS](https://getbootstrap.com)
+- [Sofani - Furniture Store HTML Template](https://themeforest.net/item/sofani-furniture-store-html-template/19892365) and its dependencies.
+- [Vuejs](https://vuejs.org)
+- [JQuery](https://jquery.com/)
+- [Moment.js](https://momentjs.com/) for Date and Time ormating
+- [Axios.js](https://github.com/axios/axios) for AJAX requests
+- [Smoke.js](https://smoke-js.com/) for Alerts
 
-## Laravel Sponsors
+#### Back-End Technology Stack
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+- [PHP 7.1.16](http://php.net) - MySQL - [Laravel 5.4](https://laravel.com/docs/5.4)
+- [Laravel Passport](https://laravel.com/docs/5.4/passport) for OAuth
+- [Barryvdh's Laravel CORS Package](https://github.com/barryvdh/laravel-cors)
+- [S-ichikawa's Laravel Sendgrid Driver](https://github.com/s-ichikawa/laravel-sendgrid-driver)

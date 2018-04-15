@@ -1,5 +1,5 @@
 const theme = {
-	carousel ()  {
+    carousel() {
         $('.sofani-owl-carousel').each(function () {
 
             var $this = $(this),
@@ -28,7 +28,7 @@ const theme = {
 
             switch ($numberItem) {
 
-                case 1 :
+                case 1:
                     $resNumber = {
                         0: {
                             items: 1
@@ -36,7 +36,7 @@ const theme = {
                     }
                     break;
 
-                case 2 :
+                case 2:
                     $resNumber = {
                         0: {
                             items: 1
@@ -53,8 +53,8 @@ const theme = {
                     }
                     break;
 
-                case 3 :
-                case 4 :
+                case 3:
+                case 4:
                     $resNumber = {
                         0: {
                             items: 1
@@ -74,7 +74,7 @@ const theme = {
                     }
                     break;
 
-                default : // $numberItem > 4
+                default: // $numberItem > 4
                     $resNumber = {
                         0: {
                             items: 1
@@ -155,144 +155,144 @@ const theme = {
             });
 
         });
-	},
+    },
 
-    carousel2 () {
+    carousel2() {
         var sync1 = $("#sync1");
         var sync2 = $("#sync2");
-        var slidesPerPage = 4; 
+        var slidesPerPage = 4;
         var syncedSecondary = true;
 
         sync1.owlCarousel({
-          items : 1,
-          slideSpeed : 2000,
-          nav: true,
-          autoplay: false,
-          dots: true,
-          loop: true,
-          responsiveRefreshRate : 200,
-          navText: ['<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>'],
+            items: 1,
+            slideSpeed: 2000,
+            nav: true,
+            autoplay: false,
+            dots: true,
+            loop: true,
+            responsiveRefreshRate: 200,
+            navText: ['<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>'],
         }).on('changed.owl.carousel', syncPosition);
 
         sync2
-          .on('initialized.owl.carousel', function () {
-            sync2.find(".owl-item").eq(0).addClass("current");
-          })
-          .owlCarousel({
-          items : slidesPerPage,
-          dots: true,
-          nav: true,
-          smartSpeed: 200,
-          slideSpeed : 500,
-          slideBy: slidesPerPage, 
-          responsiveRefreshRate : 100
-        }).on('changed.owl.carousel', syncPosition2);
+            .on('initialized.owl.carousel', function () {
+                sync2.find(".owl-item").eq(0).addClass("current");
+            })
+            .owlCarousel({
+                items: slidesPerPage,
+                dots: true,
+                nav: true,
+                smartSpeed: 200,
+                slideSpeed: 500,
+                slideBy: slidesPerPage,
+                responsiveRefreshRate: 100
+            }).on('changed.owl.carousel', syncPosition2);
 
         function syncPosition(el) {
-          var count = el.item.count-1;
-          var current = Math.round(el.item.index - (el.item.count/2) - .5);
-          
-          if(current < 0) {
-            current = count;
-          }
-          if(current > count) {
-            current = 0;
-          }
-          
-          //end block
+            var count = el.item.count - 1;
+            var current = Math.round(el.item.index - (el.item.count / 2) - .5);
 
-          sync2
-            .find(".owl-item")
-            .removeClass("current")
-            .eq(current)
-            .addClass("current");
-          var onscreen = sync2.find('.owl-item.active').length - 1;
-          var start = sync2.find('.owl-item.active').first().index();
-          var end = sync2.find('.owl-item.active').last().index();
-          
-          if (current > end) {
-            sync2.data('owl.carousel').to(current, 100, true);
-          }
-          if (current < start) {
-            sync2.data('owl.carousel').to(current - onscreen, 100, true);
-          }
+            if (current < 0) {
+                current = count;
+            }
+            if (current > count) {
+                current = 0;
+            }
+
+            //end block
+
+            sync2
+                .find(".owl-item")
+                .removeClass("current")
+                .eq(current)
+                .addClass("current");
+            var onscreen = sync2.find('.owl-item.active').length - 1;
+            var start = sync2.find('.owl-item.active').first().index();
+            var end = sync2.find('.owl-item.active').last().index();
+
+            if (current > end) {
+                sync2.data('owl.carousel').to(current, 100, true);
+            }
+            if (current < start) {
+                sync2.data('owl.carousel').to(current - onscreen, 100, true);
+            }
         }
-        
+
         function syncPosition2(el) {
-          if(syncedSecondary) {
-            var number = el.item.index;
-            sync1.data('owl.carousel').to(number, 100, true);
-          }
+            if (syncedSecondary) {
+                var number = el.item.index;
+                sync1.data('owl.carousel').to(number, 100, true);
+            }
         }
-        
-        sync2.on("click", ".owl-item", function(e){
-          e.preventDefault();
-          var number = $(this).index();
-          sync1.data('owl.carousel').to(number, 300, true);
+
+        sync2.on("click", ".owl-item", function (e) {
+            e.preventDefault();
+            var number = $(this).index();
+            sync1.data('owl.carousel').to(number, 300, true);
         });
     },
 
-    customerSpotLight () {
+    customerSpotLight() {
         var recent_news = $('.slick-slider');
         recent_news.slick({
-          centerMode: true,
-          centerPadding: '375px',
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          // variableWidth: true, // slidesToShow doesn't work, must use css to have width
-          autoplay: true,
-          autoplaySpeed: 4000,
-          responsive: [
-            {
-              breakpoint: 1500,
-              settings: {
-                centerPadding: '200px',
-                slidesToShow: 1
-              }
-            },
-            {
-              breakpoint: 1130,
-              settings: {
-                centerPadding: '200px',
-                slidesToShow: 1
-              }
-            },
-            {
-              breakpoint: 850,
-              settings: {
-                centerPadding: '150px',
-                slidesToShow: 1
-              }
-            },
-            {
-              breakpoint: 767,
-              settings: {
-                centerPadding: '0px',
-                slidesToShow: 1
-              }
-            },
-            {
-              breakpoint: 500,
-              settings: {
-                centerPadding: '0px',
-                slidesToShow: 1
-              }
-            },
-            {
-              breakpoint: 479,
-              settings: {
-                centerPadding: '0',
-                slidesToShow: 1
-              }
-            },
-          ]
+            centerMode: true,
+            centerPadding: '375px',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            // variableWidth: true, // slidesToShow doesn't work, must use css to have width
+            autoplay: true,
+            autoplaySpeed: 4000,
+            responsive: [
+                {
+                    breakpoint: 1500,
+                    settings: {
+                        centerPadding: '200px',
+                        slidesToShow: 1
+                    }
+                },
+                {
+                    breakpoint: 1130,
+                    settings: {
+                        centerPadding: '200px',
+                        slidesToShow: 1
+                    }
+                },
+                {
+                    breakpoint: 850,
+                    settings: {
+                        centerPadding: '150px',
+                        slidesToShow: 1
+                    }
+                },
+                {
+                    breakpoint: 767,
+                    settings: {
+                        centerPadding: '0px',
+                        slidesToShow: 1
+                    }
+                },
+                {
+                    breakpoint: 500,
+                    settings: {
+                        centerPadding: '0px',
+                        slidesToShow: 1
+                    }
+                },
+                {
+                    breakpoint: 479,
+                    settings: {
+                        centerPadding: '0',
+                        slidesToShow: 1
+                    }
+                },
+            ]
         });
     },
 
-    imageUpload ($this) {
+    imageUpload($this) {
         $this.theme.submitting();
         if ($this.index) {
-            $this.imageObj.slug = $this.imageObj.slug + '-' + $this.index; 
+            $this.imageObj.slug = $this.imageObj.slug + '-' + $this.index;
         }
         $this.axios.post('file', $this.imageObj)
             .then(response => {
@@ -306,7 +306,7 @@ const theme = {
             });
     },
 
-    imageUpdate ($this) {
+    imageUpdate($this) {
         $this.theme.submitting();
         $this.axios.put('file/' + $this.file.id, $this.imageObj)
             .then(response => {
@@ -319,112 +319,127 @@ const theme = {
             });
     },
 
-    imagePath (path) {
+    imagePath(path) {
         var API_URL = this.config.SITE_URL + '/api/';
         return API_URL + 'file/' + path;
     },
 
-    getCountries ($this) {
+    getCountries($this) {
         $this.axios.get('get-countries')
             .then(response => {
                 $this.countries = response.data;
             });
     },
 
-    smoke (type, info, time = 3000) {
-        smoke.signal(info, function(e){
+    smoke(type, info, time = 3000) {
+        smoke.signal(info, function (e) {
 
         }, {
-            duration: time,
-            classname: type
-        });
+                duration: time,
+                classname: type
+            });
 
         $(".smoke-base").hide();
         $(".smoke-base").slideDown();
     },
 
-    getCKEditor ($this, id, returnValue) {
-      if (document.getElementById(id).id !== 'editor') {
-        document.getElementById(id).id = 'editor';
-        CKEDITOR.replace('editor');
-      }
-      if (id === 'edit_blog_body') {
-        CKEDITOR.instances.editor.setData($this.post.body);
-      }
-      function updateValue () {
-          var editorText = CKEDITOR.instances.editor.getData();
-          $this[returnValue] = editorText;
-      }
-      $this.timer = setInterval(updateValue,100);
+    getCKEditor($this, id, returnValue) {
+        if (document.getElementById(id).id !== 'editor') {
+            document.getElementById(id).id = 'editor';
+            CKEDITOR.replace('editor');
+        }
+        if (id === 'edit_blog_body') {
+            CKEDITOR.instances.editor.setData($this.post.body);
+        }
+        function updateValue() {
+            var editorText = CKEDITOR.instances.editor.getData();
+            $this[returnValue] = editorText;
+        }
+        $this.timer = setInterval(updateValue, 100);
     },
 
-    showLoading ($this) {
+    showLoading($this) {
         $this.$emit('showLoader');
     },
 
-    submitting () {
+    submitting() {
         $("#artshop-submitting").delay(150).fadeIn(950);
     },
 
-    submitted () {
+    submitted() {
         $("#artshop-submitting").fadeOut(950);
     },
 
-    checkWidth () {
+    checkWidth() {
         var width = $(window).width();
         if (width >= 992) {
-          return true
+            return true
         }
         else {
-          return false
+            return false
         }
     },
 
-    handle422 ($this, response) {
+    handle422($this, response) {
         for (const [k, v] of Object.entries(response.response.data)) {
-          $this.error += v[0] + ' ';
+            $this.error += v[0] + ' ';
         }
-        
-        setTimeout(function(){
+
+        setTimeout(function () {
             $this.error = false;
-        }, 10000);  
+        }, 10000);
     },
 
     searchResult: 'beans',
 
     config: {
         SITE_URL: 'http://artshop.com.ng',
+        // SITE_URL: 'http://localhost:8000',
         NEXT: '',
         PREV: '',
-        TODAY () {
+        TODAY() {
             var today = new Date();
             var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
+            var mm = today.getMonth() + 1; //January is 0!
             var yyyy = today.getFullYear();
-            if(dd<10){
-                    dd='0'+dd
-                } 
-                if(mm<10){
-                    mm='0'+mm
-                } 
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
 
-            today = yyyy+'-'+mm+'-'+dd;
+            today = yyyy + '-' + mm + '-' + dd;
             return today;
         },
         PAYSTACK_PK: 'pk_test_63fbe44f64ec22de32b7ad8e1ed84c1375d50f7c',
     },
 
-    getConfig ($this) {
+    getConfig($this) {
         $this.axios.get('config')
             .then(response => {
                 $this.theme.config.PAYSTACK_PK = response.data.PAYSTACK_PK;
             })
+            .catch(response => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                localStorage.removeItem('expiresIn');
+            });
     },
-    
-    install: function(Vue){
-      Object.defineProperty(Vue.prototype, 'theme', {
-        get () { return theme }
-      })
+
+    convertToQuery(obj) {
+        var str = [];
+        for (var p in obj)
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+        return str.join("&");
+    },
+
+    install: function (Vue) {
+        Object.defineProperty(Vue.prototype, 'theme', {
+            get() { return theme }
+        })
     },
 
 }

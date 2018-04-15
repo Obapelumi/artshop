@@ -1,5 +1,5 @@
 <template>
-  <section v-if="displayedReviews.length > 2">
+  <section v-if="displayedReviews.length > 2 && products.length > 0">
           <div class="recent-news-home-blog">
             <div class="recent-news-container">
                 <div class="sperator text-center">
@@ -28,7 +28,7 @@ export default {
           var $this = this;
           let reviews = this.reviews.filter(review => review.platform == 'spotlight');
           reviews.forEach(review => {
-              review.product = $this.products.filter(product => product.id == review.product.id)[0];
+              review.product = $this.products.filter(product => parseInt(product.id) == parseInt(review.product.id))[0];
           });
           return reviews;
       }

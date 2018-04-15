@@ -61,7 +61,6 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::delete('delete-tag', 'blog\BlogController@destroyBlogTag');
 	Route::resource('news-letter', 'NewsLetterController', ['except' =>['create', 'edit']]);
 	Route::resource('order', 'OrderController', ['except' =>['create', 'edit']]);
-	Route::resource('product', 'ProductController', ['except' =>['index', 'create', 'edit']]);
 	Route::delete('signout', 'AuthController@signout');
 	Route::get('user/{id}', 'AuthController@getDetails');
 	Route::put('user', 'AuthController@updateUser');
@@ -80,7 +79,7 @@ Route::resource('category', 'CategoryController', ['except' =>['create', 'edit']
 Route::resource('customer', 'CustomerController', ['except' =>['create', 'edit']]);
 Route::resource('discount', 'DiscountController', ['except' =>['create', 'edit']]);
 Route::delete('discount-product/{id}', 'DiscountController@removeProduct');
-Route::post('products', 'ProductController@index')->name('product.index');
+Route::resource('product', 'ProductController', ['except' =>['create', 'edit']]);
 Route::post('product/category', 'CategoryController@product');
 Route::resource('review', 'ReviewController');
 Route::prefix('search')->group(function () {
@@ -96,8 +95,6 @@ Route::resource('blog', 'blog\BlogController', ['except' =>['create', 'edit']]);
 Route::get('blog-tags', 'blog\BlogController@blogTags');
 Route::resource('blogger', 'blog\BloggerController', ['except' =>['create', 'edit']]);
 Route::resource('comment', 'blog\CommentController', ['except' =>['create', 'edit', 'index', 'edit', 'update']]);
-// Route::get('file/{filename}', 'FileController@show');
-// Route::post('file', 'FileController@createFile');
-// Route::delete('file/{id}', 'FileController@deleteFile');
+
 
 

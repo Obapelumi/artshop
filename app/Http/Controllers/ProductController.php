@@ -24,6 +24,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
+        $parameters = $data;
+        unset($parameters['take']);
+        unset($parameters['display']);
 
         $display['pending'] = 0;
         $display['rejected'] = 1;
@@ -33,9 +36,9 @@ class ProductController extends Controller
         $display['on-sale'] = 5;
 
         $products = Product::where('display', '>=', $display[$data['display']])
+                    ->where($parameters)
                     ->orderBy('created_at', 'desc')
                     ->with(['tag', 'discount', 'vendor', 'order', 'file', 'category', 'review', 'meta'])
-                    // ->with(['discount', 'file', 'review',])
                     ->get();
 
         if (array_key_exists('take', $data)) {

@@ -84,7 +84,7 @@
 	        },
 	        setProducts () {
 				var id = this.user.vendor.id;
-				this.myProducts = this.shop.productsByVendor (this, id);
+				this.myProducts = this.shop.productsByVendor (this, id, true);
 			},
 			stockPending(product) {
 				return this.vendor.checkStockUpdate(this, product)

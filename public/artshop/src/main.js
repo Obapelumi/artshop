@@ -180,22 +180,31 @@ const routes = [
 			{
 				path: '/dashboard/my-orders/:id',
 				component: require('./components/dashboard/dashboard-cart.vue'),
+				meta: {
+					auth: true,
+					customer: true
+				}				
 			},
 			{
 				path: '/dashboard/edit-profile',
 				component: require('./components/dashboard/vendor/edit-profile.vue'),
 				meta: {
+					auth: true,
 					vendor: true
 				}
 			},
 			{
 				path: '/dashboard/account-settings',
-				component: require('./components/dashboard/account-settings.vue')
+				component: require('./components/dashboard/account-settings.vue'),
+				meta: {
+					auth: true,
+				}
 			},
 			{
 				path: '/dashboard/create-product',
 				component: require('./components/dashboard/vendor/create-product.vue'),
 				meta: {
+					auth: true,
 					vendor: true
 				}
 			},
@@ -203,6 +212,7 @@ const routes = [
 				path: '/dashboard/my-products',
 				component: require('./components/dashboard/vendor/my-products.vue'),
 				meta: {
+					auth: true,
 					vendor: true
 				}
 			},
@@ -210,6 +220,7 @@ const routes = [
 				path: '/dashboard/reviews',
 				component: require('./components/dashboard/vendor/product-reviews.vue'),
 				meta: {
+					auth: true,
 					vendor: true
 				}
 			},
@@ -217,21 +228,31 @@ const routes = [
 				path: '/dashboard/orders',
 				component: require('./components/dashboard/admin/orders.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
 			{
 				path: '/dashboard/orders/:id',
 				component: require('./components/dashboard/dashboard-cart.vue'),
+				meta: {
+					auth: true,
+					admin: true
+				}
 			},
 			{
 				path: '/dashboard/edit-product/:slug',
 				component: require('./components/dashboard/vendor/edit-product.vue'),
+				meta: {
+					auth: true,
+					vendor: true
+				}
 			},
 			{
 				path: '/dashboard/approve-products',
 				component: require('./components/dashboard/admin/artshop-products.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
@@ -239,6 +260,7 @@ const routes = [
 				path: '/dashboard/admin/statistics',
 				component: require('./components/dashboard/admin/statistics.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
@@ -246,6 +268,7 @@ const routes = [
 				path: '/dashboard/pending-product/:slug',
 				component: require('./components/dashboard/admin/review-product.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
@@ -253,6 +276,7 @@ const routes = [
 				path: '/dashboard/invite-admin',
 				component: require('./components/dashboard/admin/invite-admin.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
@@ -260,21 +284,31 @@ const routes = [
 				path: '/dashboard/newsletter',
 				component: require('./components/dashboard/admin/newsletter.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
 			{
 				path: '/dashboard/blog',
 				component: require('./components/dashboard/admin/blog.vue'),
+				meta: {
+					auth: true,
+					blogger: true
+				}
 			},
 			{
 				path: '/dashboard/blog/edit/:slug',
 				component: require('./components/dashboard/admin/edit-post.vue'),
+				meta: {
+					auth: true,
+					blogger: true
+				}
 			},
 			{
 				path: '/dashboard/settings',
 				component: require('./components/dashboard/admin/settings.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
@@ -282,6 +316,7 @@ const routes = [
 				path: '/dashboard/admin/all-reviews',
 				component: require('./components/dashboard/admin/all-reviews.vue'),
 				meta: {
+					auth: true,
 					admin: true
 				}
 			},
@@ -289,7 +324,7 @@ const routes = [
 	},
 	{
 		path: '/cart',
-		component: require('./components/shop/cart.vue')
+		component: require('./components/shop/cart.vue'),
 	},
 	{
 		path: '/wish-list',
@@ -350,6 +385,12 @@ const router = new VueRouter({
 		if (theme.checkWidth()) {
 			return { x: 0, y: 200 }
 		}
+		else if (savedPosition) {
+			$('html, body').animate({
+				scrollTop: savedPosition,
+				queue: false
+			}, 500);
+		}
 		else {
 			$('html, body').animate({
 				scrollTop: 400,
@@ -364,20 +405,63 @@ router.beforeEach((to, from, next) => {
 
 	const guestRequired = to.matched.some((route) => route.meta.guest);
 
+	const customerRequired = to.matched.some((route) => route.meta.customer);
+
 	const vendorRequired = to.matched.some((route) => route.meta.vendor);
+
+	const bloggerRequired = to.matched.some((route) => route.meta.blogger);
 
 	const adminRequired = to.matched.some((route) => route.meta.admin);
 
 	const token = auth.getToken();
 
-	if (authRequired && !auth.checkAuth()) {
-		theme.config.NEXT = to;
-		next('/login');
-	}
+	if (authRequired && auth.checkAuth()) {
+		if (customerRequired && auth.checkCustomer()) {
+			next();
+		}
+		else if (customerRequired) {
+			theme.smoke('info', 'Please fill in your customer account details', 5000);
+			next('/checkout');
+		}
 
-	else if (guestRequired && auth.checkAuth()) {
-		axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.getToken().token;
-		next('/dashboard');
+		if (vendorRequired && auth.checkVendor()) {
+			next();
+		}
+		else if (vendorRequired) {
+			theme.smoke('info', 'Please fill in your vendor account details', 5000);
+			next('/register-vendor');
+		}
+
+		if (bloggerRequired && auth.checkBlogger()) {
+			next();
+		}
+		else if (bloggerRequired && auth.checkAdmin()) {
+			next();
+		}	
+		else if (bloggerRequired) {
+			theme.smoke('info', 'You are not allowed to access this page', 5000);
+			next(from);
+		}	
+
+		if (adminRequired && auth.checkAdmin()) {
+			next();
+		}
+		else if (adminRequired) {
+			theme.smoke('error', 'We Love You but Admin Only', 5000);
+			next(from);
+		}
+		else {
+			next();
+		}
+	}
+	else if (authRequired) {
+		theme.config.NEXT = to;
+		theme.smoke('info', 'Please Login to Continue', 5000);
+		next('/login');	
+	}
+	
+	if (guestRequired && auth.checkAuth()) {
+		next('/dashboard');	
 	}
 	else {
 		next();

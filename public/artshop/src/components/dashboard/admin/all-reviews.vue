@@ -22,89 +22,92 @@
 </template>
 
 <script>
-
-	export default{
-		props: ['user', 'orders', 'myOrders', 'products', 'reviews'],
-		data(){
-			return{
-
-			}
-		},
-		methods: {
-			editPage (slug) {
-	        var push = '/dashboard/edit-product/' + slug;
-	        this.$router.push(push);
-			},
-		    singleProduct (slug) {
-		      var push = '/product/' + slug;
-		      this.$router.push(push);
-	        },
-	        // setProducts () {
-			// 	var id = this.user.vendor.id;
-			// 	var myProducts = this.shop.productsByVendor (this, id);
-			// 	var reviewedProducts = myProducts.filter(product => product.review.length > 0);
-
-			// 	for (var i = 0; i < reviewedProducts.length; i++) {
-			// 		var reviews = reviewedProducts[i].review;
-			// 		for (var j = 0; j < reviews.length; j++) {
-			// 			reviews[j]['product'] = reviewedProducts[i]
-			// 		}
-			// 		this.reviews.push(reviews);
-			// 	}
-            // },
-            featureReview (review) {
-                let data = {
-                    product_id: review.product.id,
-                    platform: 'spotlight',
-                };
-                var $this = this;
-                $this.theme.submitting();
-                $this.axios.put('review/'+review.id, data)
-                    .then(response => {
-                        $this.$emit('updateReviews');
-                        $this.theme.smoke('success', 'This review has been featured and will appear on the home page', 5000);
-                        $this.theme.submitted();
-                    })
-                    .catch(response => {
-                        $this.theme.smoke('error', 'There was an error please try again', 5000);
-                        $this.theme.submitted(); 
-                    });
-            },
-            hideReview (review) {
-                let data = {
-                    product_id: review.product.id,
-                    platform: 'artshop',
-                };
-                var $this = this;
-                $this.theme.submitting();
-                $this.axios.put('review/'+review.id, data)
-                    .then(response => {
-                        $this.$emit('updateReviews');
-                        $this.theme.smoke('success', 'This review has been hidden and will no longer appear on the home page', 5000);
-                        $this.theme.submitted();
-                    })
-                    .catch(response => {
-                        $this.theme.smoke('error', 'There was an error please try again', 5000);
-                        $this.theme.submitted(); 
-                    });
-            }
-        },
-		watch: {
-			products () {
-				// this.setProducts();	
-			}
-		},
-		created () {
-			if (this.products) {
-				// this.setProducts();	
-			}
-		},
-
-	}
+export default {
+  props: ["user", "orders", "myOrders", "products", "reviews"],
+  data() {
+    return {};
+  },
+  methods: {
+    editPage(slug) {
+      var push = "/dashboard/edit-product/" + slug;
+      this.$router.push(push);
+    },
+    singleProduct(slug) {
+      var push = "/product/" + slug;
+      this.$router.push(push);
+    },
+    featureReview(review) {
+      let data = {
+        product_id: review.product.id,
+        platform: "spotlight"
+      };
+      var $this = this;
+      $this.theme.submitting();
+      $this.axios
+        .put("review/" + review.id, data)
+        .then(response => {
+          $this.$emit("updateReviews");
+          $this.theme.smoke(
+            "success",
+            "This review has been featured and will appear on the home page",
+            5000
+          );
+          $this.theme.submitted();
+        })
+        .catch(response => {
+          $this.theme.smoke(
+            "error",
+            "There was an error please try again",
+            5000
+          );
+          $this.theme.submitted();
+        });
+    },
+    hideReview(review) {
+      let data = {
+        product_id: review.product.id,
+        platform: "artshop"
+      };
+      var $this = this;
+      $this.theme.submitting();
+      $this.axios
+        .put("review/" + review.id, data)
+        .then(response => {
+          $this.$emit("updateReviews");
+          $this.theme.smoke(
+            "success",
+            "This review has been hidden and will no longer appear on the home page",
+            5000
+          );
+          $this.theme.submitted();
+        })
+        .catch(response => {
+          $this.theme.smoke(
+            "error",
+            "There was an error please try again",
+            5000
+          );
+          $this.theme.submitted();
+        });
+    }
+  },
+  watch: {
+    products() {
+      // this.setProducts();
+    }
+  },
+  created() {
+    if (this.products) {
+      // this.setProducts();
+    }
+  }
+};
 </script>
 
 <style>
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -117,10 +120,9 @@ body {
 .timeline,
 .timeline h4 {
   color: #fff;
-
 }
 .content {
-	border-radius: 5px;
+  border-radius: 5px;
 }
 .timeline h1 {
   background: #fff;
@@ -143,7 +145,7 @@ body {
   padding-bottom: 7px;
 }
 .timeline ul li:before {
-  content: '';
+  content: "";
   background: #fff;
   position: absolute;
   left: 50%;
@@ -177,7 +179,7 @@ body {
   text-align: center;
 }
 .timeline ul li .content:before {
-  content: '';
+  content: "";
   background: #c4d6b0;
   position: absolute;
   top: 0px;
@@ -191,10 +193,9 @@ body {
   left: 50px;
   background: #fff;
   color: #000;
-  
 }
 .timeline ul li:nth-child(even) .content {
-	border: 3px solid #c4d6b0;
+  border: 3px solid #c4d6b0;
 }
 .timeline ul li:nth-child(even) .content:before {
   left: -41px;
@@ -205,8 +206,8 @@ body {
   background: -webkit-linear-gradient(45deg, #c4d6b0, #c4d6b0);
   background: linear-gradient(45deg, #c4d6b0, #c4d6b0);
 }
-.timeline ul li:nth-child(odd) .content a{
-    color: #fff;
+.timeline ul li:nth-child(odd) .content a {
+  color: #fff;
 }
 .timeline ul li:nth-child(odd) .content:before {
   right: -38px;
@@ -242,6 +243,4 @@ body {
     left: -33px;
   }
 }
-
-
 </style>

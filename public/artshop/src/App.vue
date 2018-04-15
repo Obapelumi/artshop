@@ -86,13 +86,17 @@ export default {
 		},
 		getProducts () {
 			var display;
+			let $this = this;
 			if (this.auth.checkAdmin()) {
 				display = 'pending';
 			}
 			else {
 				display = 'approved'
 			}
-			this.shop.getProducts(this, display, this.take);
+			this.shop.getProducts(this, {
+				display: display,
+				take: $this.take
+			});
 		},
 		getVendors () {
 			this.shop.getVendors(this);
@@ -182,9 +186,9 @@ export default {
 		var $this = this;
 	},
 	beforeCreate () {
+		this.theme.getConfig(this);	
 		if (this.auth.checkAuth()) {
 			this.checkAuth = true;
-			this.theme.getConfig(this);	
 		}
 	},
 	created () {
@@ -200,13 +204,7 @@ export default {
 		$this.getWishList();
 		setInterval(function () {
 			$this.loadMore();
-		}, 3000);
-
-		// if ($this.products.length <= 0 && $this.$route.path.includes('/product/')) {
-		// 	$("#preloaderKDZ").fadeIn(950);
-		// 	$this.theme.config.PREV = $this.$route.path;
-		// 	$this.$router.push('/shop');
-		// }		
+		}, 3000);		
 	},
 }
 </script>

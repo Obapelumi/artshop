@@ -1,14 +1,8 @@
 const shop = {
-	getProducts ($this, display, take = null)  {
-        var data = {
-            display: display,
-        }
+	getProducts ($this, params = {})  {
+        let query = '/?' + $this.theme.convertToQuery(params);
 
-        if (take !== null) {
-            data.take = take;
-        }
-
-        $this.axios.post('products', data)
+        $this.axios.get('product'+ query)
             .then(response => {
                 $this.theme.submitted();
                 $this.products = response.data.product;
@@ -28,9 +22,30 @@ const shop = {
         return result;
     },
 
-    productsByVendor ($this, id) {
+    productsByVendor ($this, id, dashboard = false) {
         var result = $this.products.filter(product => product.vendor_id == id);
-        return result;
+        if (result.length > 0) {
+            return result;
+        }
+        else if (dashboard == true) {
+            let query = '/?' + $this.theme.convertToQuery({
+                display: 'pending',
+                vendor_id: id
+            });
+            $this.theme.submitting();
+
+            $this.axios.get('product'+ query)
+                .then(response => {
+                    $this.theme.submitted();
+                    $this.myProducts = response.data.product;
+                })
+                .catch(response => {
+                    $this.theme.submitted();
+                })
+        }
+        else {
+            return result;
+        }
     },
 
     productsByDisplay ($this, value) {
@@ -314,11 +329,6 @@ const shop = {
     checkDiscount (product) {
         var discount = product.discount;
         if (discount.length > 0) {
-            // product.discount.sort(function(a, b) {
-            //     a = new Date(a.created_at);
-            //     b = new Date(b.created_at);
-            //     return a>b ? -1 : a<b ? 1 : 0;
-            // });
             if (Date.parse(discount[0].period) >= Date.parse(new Date())) {
                 return true; 
             }
@@ -333,10 +343,10 @@ const shop = {
 
     getProductDiscount (product) {
         if (this.checkDiscount(product)) {
-            return product.price * (1- product.discount[0].discount);
+            return parseFloat(product.price) * (1- parseFloat(product.discount[0].discount));
         }
         else {
-            return product.price
+            return parseFloat(product.price)
         }
     },
 

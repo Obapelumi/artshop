@@ -30,6 +30,11 @@ class VendorController extends Controller
 
     public function store(Request $request)
     {
+        // $vendor = Vendor::where('id', 4)->with(['category', 'product', 'user', 'file'])->first();
+
+        // return response()->json(['status' => true,
+        //                          'message' => 'vendor retrieved',
+        //                          'vendor' => $vendor], 200);
         $data = $request->all();
 
         $validator = $this->validate($request, [
@@ -94,7 +99,7 @@ class VendorController extends Controller
 
     public function show($slug)
     {
-        $vendor = Vendor::find('slug', $slug)->with(['category', 'product', 'user', 'file']);
+        $vendor = Vendor::where('slug', $slug)->with(['category', 'product', 'user', 'file'])->first();
 
         return response()->json(['status' => true,
                                  'message' => 'vendor retrieved',

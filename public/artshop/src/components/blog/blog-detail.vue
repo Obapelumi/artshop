@@ -68,7 +68,7 @@
         <div class="section" v-if="post.comment">
           <div id="comments" class="entry-comments">
             <div class="container">
-              <h3 class="comments-title" v-if="post.comment.length > 0"><span> There are {{post.comment.length}} comments </span></h3>
+              <h3 class="comments-title" v-if="post.comment.length > 0"><span> There are {{post.comment.length}} comment(s) </span></h3>
               <div class="entry-comments-list col-lg-8 col-md-8">
                 <ol class="commentlist clearfix">
                   <li id="li-comment-1" class="comment by user comment-author-admin bypostauthor even thread-even depth-1" v-for="comment in comments" :key="comment.id">
@@ -84,7 +84,7 @@
                           <p>{{comment.comment}}</p>
                         </div>
                         <div class="comment-meta">
-                          <a rel="nofollow" href="#respond" @click="replier(comment)"  class="comment-reply-link">
+                          <a rel="nofollow" href="#respond" @click.prevent="replier(comment)"  class="comment-reply-link">
                             <i class="fa fa-reply"></i> Reply
                           </a>
                         </div>
@@ -104,7 +104,7 @@
                               <p>{{reply.comment}}</p>
                             </div>
                             <div class="comment-meta">
-                              <a rel="nofollow" href="#respond" class="comment-reply-link" @click="replier(comment)">
+                              <a rel="nofollow" class="comment-reply-link" @click.prevent="replier(comment)">
                                 <i class="fa fa-reply"></i> Reply
                               </a>
                             </div>
@@ -172,7 +172,12 @@ export default{
   },
   methods: {
     postComment () {
-      this.admin.postComment(this);
+      if (this.auth.checkAuth()) {
+        this.admin.postComment(this);
+      }
+      else {
+        this.theme.smoke('info','Please Login or Signup to Comment', 5000)
+      }
     },
     setPost () {
       this.post = this.admin.singlePost(this);

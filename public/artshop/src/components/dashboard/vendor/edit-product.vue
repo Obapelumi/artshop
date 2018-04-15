@@ -176,11 +176,7 @@
           this.setProduct();
           this.setPrice();
           this.setMeta();
-        }
-        var draft = $this.vendor.getDraft($this)
-        if (draft != null) {
-          $this.product = draft;
-        }    
+        } 
       },
   }
 </script>

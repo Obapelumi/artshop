@@ -33,8 +33,8 @@
                         <aside class="sort-by">
                           <h4>Sort By</h4>
                           <ul>
-                            <li><a href="#" @click.prevent="sortByRating" >Average rating</a></li>
-                            <li><a href="#" @click.prevent="sortByLatest">Newness</a></li>
+                            <li><a href="#" @click.prevent="sortByRating()" >Average rating</a></li>
+                            <li><a href="#" @click.prevent="sortByLatest()">Newness</a></li>
                             <li><a href="#" @click.prevent="sortByPrice(false)">Price: Low to High</a></li>
                             <li><a href="#" @click.prevent="sortByPrice(true)">Price: High to Low</a></li>
                           </ul>
@@ -189,9 +189,10 @@ export default {
       var products = this.products.filter(product => {
         var discountedPrice = this.shop.getProductDiscount(product);
 
-        if (discountedPrice <= this.priceRange) {
+        if (discountedPrice <= parseFloat(this.priceRange)) {
           return true;
         }
+        return false;
       });
       this.shopProducts = this.shop.sortByPrice(products, true);
     },
