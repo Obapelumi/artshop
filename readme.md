@@ -1,15 +1,12 @@
 # ArtshopNG Technical Documentation
 
-<!-- The project is a Laravel based rest api with a Vuejs front end. The entry point of the vuejs app is resources/views/welcome.blade.php
-The vue js app itself lives in public/artshop. We will appreciate all the help you can give with this. Thanks! -->
-
 ## Table Of Contents
 1. [Introduction, Overview & Features](#introduction)
 2. [ARTSHOP API](#artshop-api)
 3. [ARTSHOP Front-End](#artshop-frontend)
 4. [Contributing](#contributing)
 
-## Introduction, Overview & Features <a name="introduction"></a>
+## Introduction, Overview & Features
 
 ### About
 **[ArtshopNG](http://artshop.com.ng)** seeks to be the world’s leading online marketplace for Nigeria Art, Crafts and Textile Prints. **[ArtshopNG](http://artshop.com.ng)** promotes the beauty of the Nigerian culture by creating an online community where crafters, artists and makers could sell their handmade, vintage goods and craft supplies. <br>
